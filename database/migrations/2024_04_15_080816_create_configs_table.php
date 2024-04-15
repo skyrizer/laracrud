@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('nodes', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->integer('ip_address');
+        Schema::create('configs', function (Blueprint $table) {
+            $table->id();
+            $table->integer('value');
             $table->timestamps();
         });
     }
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('nodes');
+        Schema::dropIfExists('configs');
     }
 };

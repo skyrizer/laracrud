@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Node;
+use App\Models\NodeConfig;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StorenodeRequest;
-use App\Http\Requests\UpdatenodeRequest;
+use App\Http\Requests\StoreNodeConfigRequest;
+use App\Http\Requests\UpdateNodeConfigRequest;
 
-class NodeController extends Controller
+class NodeConfigController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,7 +28,7 @@ class NodeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorenodeRequest $request)
+    public function store(StoreNodeConfigRequest $request)
     {
         //
     }
@@ -36,7 +36,7 @@ class NodeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(node $node)
+    public function show(NodeConfig $nodeConfig)
     {
         //
     }
@@ -44,7 +44,7 @@ class NodeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(node $node)
+    public function edit(NodeConfig $nodeConfig)
     {
         //
     }
@@ -52,7 +52,7 @@ class NodeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatenodeRequest $request, node $node)
+    public function update(UpdateNodeConfigRequest $request, NodeConfig $nodeConfig)
     {
         //
     }
@@ -60,7 +60,7 @@ class NodeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(node $node)
+    public function destroy(NodeConfig $nodeConfig)
     {
         //
     }

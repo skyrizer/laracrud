@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Node;
+use App\Models\CpuUsage;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StorenodeRequest;
-use App\Http\Requests\UpdatenodeRequest;
+use App\Http\Requests\StoreCpuUsageRequest;
+use App\Http\Requests\UpdateCpuUsageRequest;
 
-class NodeController extends Controller
+class CpuUsageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,7 +28,7 @@ class NodeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorenodeRequest $request)
+    public function store(StoreCpuUsageRequest $request)
     {
         //
     }
@@ -36,7 +36,7 @@ class NodeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(node $node)
+    public function show(CpuUsage $cpuUsage)
     {
         //
     }
@@ -44,7 +44,7 @@ class NodeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(node $node)
+    public function edit(CpuUsage $cpuUsage)
     {
         //
     }
@@ -52,7 +52,7 @@ class NodeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatenodeRequest $request, node $node)
+    public function update(UpdateCpuUsageRequest $request, CpuUsage $cpuUsage)
     {
         //
     }
@@ -60,7 +60,7 @@ class NodeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(node $node)
+    public function destroy(CpuUsage $cpuUsage)
     {
         //
     }
