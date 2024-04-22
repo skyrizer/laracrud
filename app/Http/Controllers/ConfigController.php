@@ -17,8 +17,8 @@ class ConfigController extends Controller
 
     public function index()
     {
-        // Retrieve data from a model (e.g., Eloquent ORM)
-        $configs = Config::all(); // Example assuming you have an 'Item' model
+        // Retrieve data from a model 
+        $configs = Config::all(); 
     
         // Return the data as JSON with the specified HTTP response code
         return response()->json(['configs' => $configs], Response::HTTP_OK);
