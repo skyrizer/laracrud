@@ -6,6 +6,8 @@ use App\Models\UserRole;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRoleRequest;
 use App\Http\Requests\UpdateUserRoleRequest;
+use Illuminate\Http\Response;
+
 
 class UserRoleController extends Controller
 {
@@ -14,7 +16,11 @@ class UserRoleController extends Controller
      */
     public function index()
     {
-        //
+        // Retrieve data from a model 
+        $roles = UserRole::all(); 
+    
+        // Return the data as JSON with the specified HTTP response code
+        return response()->json(['roles' => $roles], Response::HTTP_OK);
     }
 
     /**
@@ -30,7 +36,22 @@ class UserRoleController extends Controller
      */
     public function store(StoreUserRoleRequest $request)
     {
-        //
+        //validate fields
+        $attrs = $request->validate([
+            'role' => 'required'
+
+        ]);
+
+        //create user
+        $role = UserRole::create([
+            'role' => $attrs['role']
+        ]);
+
+        //return user & token in response
+        return response([
+            'role' => $role,
+        ], 200);
+
     }
 
     /**

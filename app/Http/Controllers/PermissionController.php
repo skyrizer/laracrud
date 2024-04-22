@@ -6,6 +6,7 @@ use App\Models\Permission;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
+use Illuminate\Http\Response;
 
 class PermissionController extends Controller
 {
@@ -14,7 +15,11 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        //
+        // Retrieve data from a model 
+        $permissions = Permission::all(); 
+    
+        // Return the data as JSON with the specified HTTP response code
+        return response()->json(['permissions' => $permissions], Response::HTTP_OK);
     }
 
     /**
@@ -30,7 +35,20 @@ class PermissionController extends Controller
      */
     public function store(StorePermissionRequest $request)
     {
-        //
+        //validate fields
+        $attrs = $request->validate([
+            'name' => 'required|string',
+        ]);
+
+        //create user
+        $permission = Permission::create([
+            'name' => $attrs['name'],
+        ]);
+
+        //return user & token in response
+        return response([
+            'permission' => $permission,
+        ], 200);
     }
 
     /**

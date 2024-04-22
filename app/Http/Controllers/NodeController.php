@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorenodeRequest;
 use App\Http\Requests\UpdatenodeRequest;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
 
 class NodeController extends Controller
 {
@@ -15,7 +17,11 @@ class NodeController extends Controller
      */
     public function index()
     {
-        //
+        // Retrieve data from a model 
+        $nodes = Node::all(); 
+    
+        // Return the data as JSON with the specified HTTP response code
+        return response()->json(['nodes' => $nodes], Response::HTTP_OK);
     }
 
     /**

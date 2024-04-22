@@ -30,7 +30,23 @@ class RolePermissionController extends Controller
      */
     public function store(StoreRolePermissionRequest $request)
     {
-        //
+         //validate fields
+         $attrs = $request->validate([
+            'role_id' => 'required|exists:role,id',
+            'permission_id' => 'required|exists:permission,id',
+
+        ]);
+
+        //create user
+        $rolePermission = RolePermission::create([
+            'role_id' => $attrs['role_id'],
+            'permission_id' => $attrs['permission_id']
+        ]);
+
+        //return user & token in response
+        return response([
+            'rolePermission' => $rolePermission,
+        ], 200);
     }
 
     /**

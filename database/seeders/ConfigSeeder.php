@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Config;
+
 
 class ConfigSeeder extends Seeder
 {
@@ -12,6 +14,10 @@ class ConfigSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Config::firstOrCreate([
+            'name' => 'interval time',
+            'value' => '10'
+        ]);
+
     }
 }

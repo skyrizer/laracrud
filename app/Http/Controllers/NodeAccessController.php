@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\NodeAccess;
+use App\Models\User;
+use App\Models\Node;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreNodeAccessRequest;
 use App\Http\Requests\UpdateNodeAccessRequest;
+use Illuminate\Http\Request;
+
 
 class NodeAccessController extends Controller
 {
@@ -20,9 +24,29 @@ class NodeAccessController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $user = new User();
+        #$node = new Node();
+
+          //validate fields
+          $attrs = $request->validate([
+            'user_id' => 'required|exists:user,id',
+            'role_id' => 'required|exists:role,id',
+            'node_id' => 'required|exists:node,id',
+        ]);
+
+        //create user
+        $nodeAccess = NodeAccess::create([
+            'user_id' => $attrs['user_id'],
+            'role_id' => $attrs['role_id'],
+            'node_id' => $attrs['node_id']
+        ]);
+
+        //return user & token in response
+        return response([
+            'nodeAccess' => $nodeAccess,
+        ], 200);
     }
 
     /**

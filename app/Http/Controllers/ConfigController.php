@@ -6,16 +6,24 @@ use App\Models\Config;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreConfigRequest;
 use App\Http\Requests\UpdateConfigRequest;
+use Illuminate\Http\Response;
 
 class ConfigController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    
+
     public function index()
     {
-        //
+        // Retrieve data from a model (e.g., Eloquent ORM)
+        $configs = Config::all(); // Example assuming you have an 'Item' model
+    
+        // Return the data as JSON with the specified HTTP response code
+        return response()->json(['configs' => $configs], Response::HTTP_OK);
     }
+    
 
     /**
      * Show the form for creating a new resource.

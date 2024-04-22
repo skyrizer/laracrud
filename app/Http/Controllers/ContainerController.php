@@ -7,12 +7,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreContainerRequest;
 use App\Http\Requests\UpdateContainerRequest;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 
 class ContainerController extends Controller
 {
     
-    public function getContainers(Request $request)
+    public function storeContainers(Request $request)
     {
         $data = $request->json()->all();
         
@@ -52,7 +53,11 @@ class ContainerController extends Controller
      */
     public function index()
     {
-        //
+        // Retrieve data from a model 
+        $containers = Container::all(); 
+    
+        // Return the data as JSON with the specified HTTP response code
+        return response()->json(['containers' => $containers], Response::HTTP_OK);
     }
 
     /**
