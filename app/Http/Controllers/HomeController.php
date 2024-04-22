@@ -13,92 +13,92 @@ class HomeController extends Controller
         return view('home'); 
     }
 
-    public function add_product(Request $request)
-    {
+    // public function add_product(Request $request)
+    // {
 
-        $request->validate(
+    //     $request->validate(
             
-            [
+    //         [
 
-            'title'=> 'required',
-            'description'=> 'required'
+    //         'title'=> 'required',
+    //         'description'=> 'required'
 
-            ],
+    //         ],
     
-    );
-        $data=new Product;
+    // );
+    //     $data=new Product;
 
-        $data->title = $request->title;
-        $data->description = $request->description;
+    //     $data->title = $request->title;
+    //     $data->description = $request->description;
 
-        $image = $request->image;
+    //     $image = $request->image;
 
-        if($image)
-        {
+    //     if($image)
+    //     {
 
-        $imagename=time().'.'.$image->getClientOriginalExtension();
+    //     $imagename=time().'.'.$image->getClientOriginalExtension();
 
-        $request->image->move('product',$imagename);
+    //     $request->image->move('product',$imagename);
 
-        $data->image=$imagename;
+    //     $data->image=$imagename;
 
-        }
+    //     }
 
 
-        $data->save(); 
+    //     $data->save(); 
 
-        return redirect()->back();
+    //     return redirect()->back();
 
-    }
+    // }
 
-    public function show_product()
-    {
-        $data= Product::all();
-        return response()->json($data);
-         // return view('product',compact('data'));
-    }
+    // public function show_product()
+    // {
+    //     // $data= Product::all();
+    //     // return response()->json($data);
+    //     //  // return view('product',compact('data'));
+    // }
 
-    public function delete_product($id)
-    {
-        $data = Product::find($id);
+    // public function delete_product($id)
+    // {
+    //     $data = Product::find($id);
 
-        $data->delete();
+    //     $data->delete();
 
-        return redirect()->back();
-    }
+    //     return redirect()->back();
+    // }
 
-    public function update_product($id)
-    {
-        $product = Product::find($id);
+    // public function update_product($id)
+    // {
+    //     $product = Product::find($id);
 
-        return view('product_update',compact('product'));
-    }
+    //     return view('product_update',compact('product'));
+    // }
 
-    public function edit_product(Request $request,$id)
-    {
-        $data = Product::find($id);
+    // public function edit_product(Request $request,$id)
+    // {
+    //     $data = Product::find($id);
 
-        $data->title = $request->title;
+    //     $data->title = $request->title;
 
-        $data->description = $request->description;
+    //     $data->description = $request->description;
 
-        $image = $request->image;
+    //     $image = $request->image;
 
-        if($image)
-        {
+    //     if($image)
+    //     {
 
-            $imagename=time().'.'.$image->getClientOriginalExtension();
+    //         $imagename=time().'.'.$image->getClientOriginalExtension();
 
-            $request->image->move('product',$imagename);
+    //         $request->image->move('product',$imagename);
 
-            $data->image = $imagename;
+    //         $data->image = $imagename;
 
-        }
+    //     }
 
-        $data->save();
+    //     $data->save();
 
-        return redirect()->back();
+    //     return redirect()->back();
 
-    }
+    // }
 
 }
