@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Container extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'container_id',
+        'name',
+        'image',
+        'created',
+        'status',
+        'port',
+        'node_id'
+    ];
+
 }

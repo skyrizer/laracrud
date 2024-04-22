@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('nodes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->integer('ip_address');
+            $table->string('ip_address');
             $table->timestamps();
         });
     }

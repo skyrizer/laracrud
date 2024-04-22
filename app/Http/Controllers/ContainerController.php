@@ -6,9 +6,47 @@ use App\Models\Container;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreContainerRequest;
 use App\Http\Requests\UpdateContainerRequest;
+use Illuminate\Http\Request;
+
 
 class ContainerController extends Controller
 {
+    
+    public function getContainers(Request $request)
+    {
+        $data = $request->json()->all();
+        
+        if (isset($data['containers']) && is_array($data['containers'])) {
+            foreach ($data['containers'] as $containerData) {
+
+                // Extract container information
+                $containerId = $containerData['CONTAINER ID'];
+                $name = $containerData['NAME'];
+                $image = $containerData['IMAGE'];
+                $createdAt = $containerData['CREATED'];
+                $ports = $containerData['PORT'];
+                $status = $containerData['STATUS'];
+                
+                // Insert into database
+                Container::create([
+                    'container_id' => $containerId,
+                    'name' => $name,
+                    'image' => $image,
+                    'created' => $createdAt,
+                    'port' => $ports,
+                    'status' => $status,
+                    'node_id' => 1
+                ]);
+            }
+            
+            // Log success and return response
+            \Log::info('Received container data: ' . json_encode($data['containers']));
+            return response()->json(['message' => 'Container data received and inserted successfully']);
+        } else {
+            return response()->json(['error' => 'Invalid request data'], 400);
+        }
+    }
+
     /**
      * Display a listing of the resource.
      */

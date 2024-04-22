@@ -10,7 +10,7 @@ class AgentController extends Controller
 {
     /**
      * @OA\Post(
-     *     path="/agents",
+     *     path="/agent",
      *     tags={"Agents"},
      *     summary="Receive performance data from agent",
      *     description="Endpoint to receive performance data from the agent",
@@ -29,8 +29,8 @@ class AgentController extends Controller
     {
         $data = $request->json()->all();
         
-        if (isset($data['performance'])) {
-            $performanceOutput = $data['performance'];
+        if (isset($data['performance']) && is_array($data['performance'])) {
+            $performanceOutput = json_encode($data['performance']);
             // Perform any processing with the received data
             \Log::info('Received performance output: ' . $performanceOutput);
             return response()->json(['message' => 'Performance output received successfully']);
@@ -38,4 +38,5 @@ class AgentController extends Controller
             return response()->json(['error' => 'Invalid request data'], 400);
         }
     }
+    
 }

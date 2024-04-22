@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('containers', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('container_id');
             $table->string('name');
-            $table->string('description');
-            $table->string('ip_address');
-            $table->integer('port');
+            $table->string('image');
+            $table->string('created');
+            $table->string('status');
+            $table->string('port');
+            $table->unsignedBigInteger('node_id'); // Add the node_id column
             $table->foreign('node_id')->references('id')->on('nodes');
             $table->timestamps();
         });
@@ -30,3 +33,4 @@ return new class extends Migration
         Schema::dropIfExists('containers');
     }
 };
+

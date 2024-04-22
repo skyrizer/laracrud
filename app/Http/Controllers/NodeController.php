@@ -6,6 +6,7 @@ use App\Models\Node;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorenodeRequest;
 use App\Http\Requests\UpdatenodeRequest;
+use Illuminate\Http\Request;
 
 class NodeController extends Controller
 {
@@ -20,9 +21,24 @@ class NodeController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+         //validate fields
+         $attrs = $request->validate([
+            'name' => 'required|string',
+            'ip_address' => 'required|string',
+        ]);
+
+        //create user
+        $node = Node::create([
+            'name' => $attrs['name'],
+            'ip_address' => $attrs['ip_address']
+        ]);
+
+        //return user & token in response
+        return response([
+            'node' => $node,
+        ], 200);
     }
 
     /**

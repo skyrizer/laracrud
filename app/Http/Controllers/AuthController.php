@@ -16,15 +16,19 @@ class AuthController extends Controller
     {
         //validate fields
         $attrs = $request->validate([
+            'username' => 'string',
             'name' => 'required|string',
+            'phone_number' => 'string',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed'
         ]);
 
         //create user
         $user = User::create([
+            'username' => $attrs['username'],
             'name' => $attrs['name'],
             'email' => $attrs['email'],
+            'phone_number' => $attrs['phone_number'],
             'password' => bcrypt($attrs['password'])
         ]);
 
