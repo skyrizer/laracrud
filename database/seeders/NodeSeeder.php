@@ -16,7 +16,7 @@ class NodeSeeder extends Seeder
     {
         //
         Node::factory()->create([
-            'name' => 'DGOWafir',
+            'hostname' => 'DGOWafir',
             'ip_address' => '128.199.194.23',
             
         ]);

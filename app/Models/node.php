@@ -15,7 +15,7 @@ class Node extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'hostname',
         'ip_address',
     ];
 

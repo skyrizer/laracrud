@@ -31,13 +31,13 @@ class NodeController extends Controller
     {
          //validate fields
          $attrs = $request->validate([
-            'name' => 'required|string',
+            'hostname' => 'required|string',
             'ip_address' => 'required|string',
         ]);
 
         //create user
         $node = Node::create([
-            'name' => $attrs['name'],
+            'hostname' => $attrs['hostname'],
             'ip_address' => $attrs['ip_address']
         ]);
 

@@ -47,6 +47,7 @@ class RolePermissionController extends Controller
         return response([
             'rolePermission' => $rolePermission,
         ], 200);
+        
     }
 
     /**

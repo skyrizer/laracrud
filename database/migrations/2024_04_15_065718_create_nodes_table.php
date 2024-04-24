@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('nodes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('hostname');
             $table->string('ip_address');
             $table->timestamps();
         });

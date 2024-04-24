@@ -14,39 +14,41 @@ class ContainerController extends Controller
 {
     
     public function storeContainers(Request $request)
-    {
-        $data = $request->json()->all();
+{
+    $data = $request->json()->all();
+    
+    if (isset($data['node_id']) && isset($data['containers']) && is_array($data['containers'])) {
+        $node_id = $data['node_id'];
         
-        if (isset($data['containers']) && is_array($data['containers'])) {
-            foreach ($data['containers'] as $containerData) {
-
-                // Extract container information
-                $containerId = $containerData['CONTAINER ID'];
-                $name = $containerData['NAME'];
-                $image = $containerData['IMAGE'];
-                $createdAt = $containerData['CREATED'];
-                $ports = $containerData['PORT'];
-                $status = $containerData['STATUS'];
-                
-                // Insert into database
-                Container::create([
-                    'container_id' => $containerId,
-                    'name' => $name,
-                    'image' => $image,
-                    'created' => $createdAt,
-                    'port' => $ports,
-                    'status' => $status,
-                    'node_id' => 1
-                ]);
-            }
+        foreach ($data['containers'] as $containerData) {
+            // Extract container information
+            $containerId = $containerData['CONTAINER ID'];
+            $name = $containerData['NAME'];
+            $image = $containerData['IMAGE'];
+            $createdAt = $containerData['CREATED'];
+            $ports = $containerData['PORT'];
+            $status = $containerData['STATUS'];
             
-            // Log success and return response
-            \Log::info('Received container data: ' . json_encode($data['containers']));
-            return response()->json(['message' => 'Container data received and inserted successfully']);
-        } else {
-            return response()->json(['error' => 'Invalid request data'], 400);
+            // Insert into database with associated node_id
+            Container::create([
+                'container_id' => $containerId,
+                'name' => $name,
+                'image' => $image,
+                'created' => $createdAt,
+                'port' => $ports,
+                'status' => $status,
+                'node_id' => $node_id  // Associate container with node_id
+            ]);
         }
+        
+        // Log success and return response
+        \Log::info('Received container data: ' . json_encode($data['containers']));
+        return response()->json(['message' => 'Container data received and inserted successfully']);
+    } else {
+        return response()->json(['error' => 'Invalid request data'], 400);
     }
+}
+
 
     /**
      * Display a listing of the resource.
