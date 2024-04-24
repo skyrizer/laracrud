@@ -12,42 +12,45 @@ use Illuminate\Http\Response;
 
 class ContainerController extends Controller
 {
-    
+
     public function storeContainers(Request $request)
-{
-    $data = $request->json()->all();
-    
-    if (isset($data['node_id']) && isset($data['containers']) && is_array($data['containers'])) {
-        $node_id = $data['node_id'];
-        
-        foreach ($data['containers'] as $containerData) {
-            // Extract container information
-            $containerId = $containerData['CONTAINER ID'];
-            $name = $containerData['NAME'];
-            $image = $containerData['IMAGE'];
-            $createdAt = $containerData['CREATED'];
-            $ports = $containerData['PORT'];
-            $status = $containerData['STATUS'];
-            
-            // Insert into database with associated node_id
-            Container::create([
-                'container_id' => $containerId,
-                'name' => $name,
-                'image' => $image,
-                'created' => $createdAt,
-                'port' => $ports,
-                'status' => $status,
-                'node_id' => $node_id  // Associate container with node_id
-            ]);
+    {
+        $data = $request->json()->all();
+
+        if (isset($data['node_id']) && isset($data['containers']) && is_array($data['containers'])) {
+            $node_id = $data['node_id'];
+
+            foreach ($data['containers'] as $containerData) {
+                // Extract container information
+                $containerId = $containerData['CONTAINER ID'];
+                $name = $containerData['NAME'];
+                $image = $containerData['IMAGE'];
+                $createdAt = $containerData['CREATED'];
+                $ports = $containerData['PORT'];
+                $status = $containerData['STATUS'];
+
+                // Insert into database with associated node_id
+                Container::create([
+                    'container_id' => $containerId,
+                    'name' => $name,
+                    'image' => $image,
+                    'created' => $createdAt,
+                    'port' => $ports,
+                    'status' => $status,
+                    'disk_limit' => '10',
+                    'net_limit' => '10',
+                    'mem_limit' => '10',
+                    'node_id' => $node_id  // Associate container with node_id
+                ]);
+            }
+
+            // Log success and return response
+            \Log::info('Received container data: ' . json_encode($data['containers']));
+            return response()->json(['message' => 'Container data received and inserted successfully']);
+        } else {
+            return response()->json(['error' => 'Invalid request data'], 400);
         }
-        
-        // Log success and return response
-        \Log::info('Received container data: ' . json_encode($data['containers']));
-        return response()->json(['message' => 'Container data received and inserted successfully']);
-    } else {
-        return response()->json(['error' => 'Invalid request data'], 400);
     }
-}
 
 
     /**
@@ -56,8 +59,8 @@ class ContainerController extends Controller
     public function index()
     {
         // Retrieve data from a model 
-        $containers = Container::all(); 
-    
+        $containers = Container::all();
+
         // Return the data as JSON with the specified HTTP response code
         return response()->json(['containers' => $containers], Response::HTTP_OK);
     }

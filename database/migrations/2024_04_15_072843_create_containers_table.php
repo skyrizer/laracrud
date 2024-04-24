@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('created');
             $table->string('status');
             $table->string('port');
+            $table->integer('disk_limit');
+            $table->integer('mem_limit');
+            $table->integer('net_limit');
             $table->unsignedBigInteger('node_id'); // Add the node_id column
             $table->foreign('node_id')->references('id')->on('nodes');
             $table->timestamps();

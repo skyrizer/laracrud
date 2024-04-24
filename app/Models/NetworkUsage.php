@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class NetworkUsage extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'container_id',
+        'input',
+        'output',
+
+      
+
+    ];
 }

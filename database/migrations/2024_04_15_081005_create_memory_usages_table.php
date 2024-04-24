@@ -13,15 +13,17 @@ return new class extends Migration
     {
         Schema::create('memory_usages', function (Blueprint $table) {
               // Define container_id and dateType as primary keys
-              $table->unsignedBigInteger('container_id');
-              $table->dateTime('dateType');
-              $table->primary(['container_id', 'dateType']);
+              $table->string('container_id');
+              $table->dateTime('dateTime');
+              $table->primary(['container_id', 'dateTime']);
   
               // Define foreign key constraint for container_id
-              $table->foreign('container_id')->references('id')->on('containers');
+              $table->foreign('container_id')->references('container_id')->on('containers');
   
               // Add value column
-              $table->integer('value');
+              $table->string('usage');
+              $table->string('size');
+
   
               $table->timestamps();
         });

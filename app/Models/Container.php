@@ -16,6 +16,9 @@ class Container extends Model
         'created',
         'status',
         'port',
+        'disk_limit',
+        'net_limit',
+        'mem_limit',
         'node_id'
     ];
 

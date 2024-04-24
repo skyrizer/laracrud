@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class CpuUsage extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'container_id',
+        'percentage',
+      
+
+    ];
+
 }

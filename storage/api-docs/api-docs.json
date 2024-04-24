@@ -5,17 +5,35 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/agents": {
-            "get": {
+        "/agent": {
+            "post": {
                 "tags": [
                     "Agents"
                 ],
-                "summary": "Get data from agent",
-                "description": "Returns a list of performance",
-                "operationId": "0310e0e6f25f2393bc8b6e3becd5960e",
+                "summary": "Receive performance data from agent",
+                "description": "Endpoint to receive performance data from the agent",
+                "operationId": "24f0f6f4820f957c4e45cd70d052365e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "performance": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid request data"
                     }
                 }
             }
