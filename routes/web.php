@@ -19,6 +19,7 @@ use App\Http\Controllers\RolePermissionController;
 
 // Agent Controller
 route::post('/agent', [AgentController::class, 'handlePostRequest']);
+
 // Container
 Route::post('storeContainers', [ContainerController::class, 'storeContainers']);
 

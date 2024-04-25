@@ -12,9 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('containers', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('container_id');
-            $table->string('name');
+            $table->string('id')->unique(); // Make 'id' unique but not auto-incrementing
+            $table->string('name')->primary;
             $table->string('image');
             $table->string('created');
             $table->string('status');

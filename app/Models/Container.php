@@ -10,7 +10,7 @@ class Container extends Model
     use HasFactory;
 
     protected $fillable = [
-        'container_id',
+        'id',
         'name',
         'image',
         'created',

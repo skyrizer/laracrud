@@ -50,8 +50,7 @@ class AuthController extends Controller
         ]);
 
         // attemp login
-        if(!Auth::attempt($attrs))
-        {
+        if (!Auth::attempt($attrs)) {
             return response([
                 'message' => 'Invalid credentials.'
             ], 403);
@@ -65,16 +64,16 @@ class AuthController extends Controller
     }
 
     // logout user
-  // logout user
-public function logout()
-{
-    // Revoke all tokens for the authenticated user
-    auth()->user()->tokens()->delete();
-    
-    return response([
-        'message' => 'Logout success.'
-    ], 200);
-}
+    // logout user
+    public function logout()
+    {
+        // Revoke all tokens for the authenticated user
+        auth()->user()->tokens()->delete();
+
+        return response([
+            'message' => 'Logout success.'
+        ], 200);
+    }
 
     // get usr details
     public function user()
@@ -83,5 +82,5 @@ public function logout()
             'user' => auth()->user()
         ], 200);
     }
-   
+
 }

@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('disk_usages', function (Blueprint $table) {
               // Define container_id and dateType as primary keys
               $table->string('container_id');
-              $table->dateTime('dateTime');
+              $table->timestamp('dateTime')->useCurrent();
               $table->primary(['container_id', 'dateTime']);
   
               // Define foreign key constraint for container_id
-              $table->foreign('container_id')->references('container_id')->on('containers');
+              $table->foreign('container_id')->references('id')->on('containers');
   
               // Add value column
               $table->string('input');

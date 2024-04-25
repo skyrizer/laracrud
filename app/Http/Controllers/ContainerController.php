@@ -31,7 +31,7 @@ class ContainerController extends Controller
 
                 // Insert into database with associated node_id
                 Container::create([
-                    'container_id' => $containerId,
+                    'id' => $containerId,
                     'name' => $name,
                     'image' => $image,
                     'created' => $createdAt,

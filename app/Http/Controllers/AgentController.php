@@ -9,6 +9,8 @@ use App\Models\DiskUsage;
 use App\Models\MemoryUsage;
 use App\Models\CpuUsage;
 use App\Models\NetworkUsage;
+use App\Models\Container;
+
 
 
 
@@ -36,7 +38,6 @@ class AgentController extends Controller
         $data = $request->json()->all();
         
         if (isset($data['performance']) && is_array($data['performance'])) {
-
             foreach ($data['performance'] as $performanceData) {
                 // Extract container information
                 $containerId = $performanceData['CONTAINER ID'];
@@ -49,37 +50,36 @@ class AgentController extends Controller
                 $blockInput = $performanceData['BLOCK INPUT'];
                 $blockOutput = $performanceData['BLOCK OUTPUT'];
                 $pids = $performanceData['PIDS'];
-
-
-                // Insert into database with associated node_id
-                DiskUsage::create([
-                    'container_id' => $containerId,
-                    'input' => $blockInput,
-                    'output' => $blockOutput
-                ]);
-
-                // Insert into database with associated node_id
-                MemoryUsage::create([
-                    'container_id' => $containerId,
-                    'usage' => $memUsage,
-                    'size' => $memSize
-                ]);
-
-                // Insert into database with associated node_id
-                NetworkUsage::create([
-                    'container_id' => $containerId,
-                    'input' => $netInput,
-                    'output' => $netOutput
-                ]);
-
-                 // Insert into database with associated node_id
-                 CpuUsage::create([
-                    'container_id' => $containerId,
-                    'percentage' => $cpu
-                ]);
+    
+                    // Insert into database with associated node_id
+                    DiskUsage::create([
+                        'container_id' => $containerId,
+                        'input' => $blockInput,
+                        'output' => $blockOutput
+                    ]);
+    
+                    // Insert into database with associated node_id
+                    MemoryUsage::create([
+                        'container_id' => $containerId,
+                        'usage' => $memUsage,
+                        'size' => $memSize
+                    ]);
+    
+                    // Insert into database with associated node_id
+                    NetworkUsage::create([
+                        'container_id' => $containerId,
+                        'input' => $netInput,
+                        'output' => $netOutput
+                    ]);
+    
+                    // Insert into database with associated node_id
+                    CpuUsage::create([
+                        'container_id' => $containerId,
+                        'percentage' => $cpu
+                    ]);
 
             }
-
+    
             // Perform any processing with the received data
             \Log::info('Received container data: ' . json_encode($data['performance']));
             return response()->json(['message' => 'Performance output received successfully']);
