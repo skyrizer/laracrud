@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PerformanceController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AgentController;
@@ -27,6 +28,10 @@ Route::post('storeContainers', [ContainerController::class, 'storeContainers']);
 route::post('api/register', [AuthController::class, 'register']);
 route::post('api/login', [AuthController::class, 'login']);
 
+// Refresh Token
+Route::put('/refreshToken', [AuthController::class, 'refreshToken'])->name('refresh.token');
+
+
 // Protected routes
 Route::prefix('api')->middleware(['auth:sanctum'])->group(function() {
 
@@ -46,6 +51,11 @@ Route::prefix('api')->middleware(['auth:sanctum'])->group(function() {
 
     // Container
     Route::get('getContainers', [ContainerController::class, 'index']);
+
+    // Container performance
+    Route::get('containerPerformance', [PerformanceController::class, 'performance']);
+    Route::get('allPerformance', [PerformanceController::class, 'performanceForAllContainers']);
+
 
 
     // Permission

@@ -22,4 +22,11 @@ class Container extends Model
         'node_id'
     ];
 
+    // Specify that the 'id' field is a string
+    protected $keyType = 'string';
+
+    // Explicitly cast the 'id' field to a string
+    protected $casts = [
+        'id' => 'string',
+    ];
 }
