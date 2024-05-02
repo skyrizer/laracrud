@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NodeAccessController;
 use App\Http\Controllers\PerformanceController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -11,18 +12,20 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserRoleController;
 use App\Http\Controllers\RolePermissionController;
 
+Route::middleware(['HttpRequest'])->group(function() {
 
+    // Route::post('storeContainers', [ContainerController::class, 'storeContainers']);
+    
+});
 
-
-
-
+Route::post('storeContainers', [ContainerController::class, 'storeContainers']);
 
 
 // Agent Controller
 route::post('/agent', [AgentController::class, 'handlePostRequest']);
 
 // Container
-Route::post('storeContainers', [ContainerController::class, 'storeContainers']);
+//Route::post('storeContainers', [ContainerController::class, 'storeContainers']);
 
 // Public
 route::post('api/register', [AuthController::class, 'register']);
@@ -56,8 +59,6 @@ Route::prefix('api')->middleware(['auth:sanctum'])->group(function() {
     Route::get('containerPerformance', [PerformanceController::class, 'performance']);
     Route::get('allPerformance', [PerformanceController::class, 'performanceForAllContainers']);
 
-
-
     // Permission
     Route::get('getPermissions', [PermissionController::class, 'index']);
     Route::post('addPermission', [PermissionController::class, 'store']);
@@ -65,11 +66,12 @@ Route::prefix('api')->middleware(['auth:sanctum'])->group(function() {
     // Role Permission
     Route::post('addRolePermission', [RolePermissionController::class, 'store']);
 
-
     // UserRole
     Route::get('getRoles', [UserRoleController::class, 'index']);
     Route::post('addRole', [UserRoleController::class, 'store']);
 
+    // Node Access
+    Route::post('addNodeAccess', [NodeAccessController::class, 'create']);
 
 
 });

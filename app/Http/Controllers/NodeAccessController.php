@@ -26,8 +26,6 @@ class NodeAccessController extends Controller
      */
     public function create(Request $request)
     {
-        $user = new User();
-        #$node = new Node();
 
           //validate fields
           $attrs = $request->validate([

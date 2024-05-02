@@ -19,6 +19,7 @@ class Container extends Model
         'disk_limit',
         'net_limit',
         'mem_limit',
+        'cpu_limit',
         'node_id'
     ];
 

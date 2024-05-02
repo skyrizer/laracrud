@@ -20,8 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(NodeSeeder::class);
 
 
-
-
         User::factory()->create([
             'name' => 'wafir',
             'username' => 'skyrizer',

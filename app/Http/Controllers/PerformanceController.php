@@ -49,16 +49,17 @@ class PerformanceController extends Controller
     
         // Loop through each container
         foreach ($containers as $container) {
-
+    
             $containerID = $container['id'];
-
+            $containerName = $container['name']; // Fetch container name
+    
             \Log::info('Container ID: ' . $containerID);
-
+    
             // Fetch performance data for the current container
-            $performanceData[$containerID]['diskUsage'] = DiskUsage::where('container_id', $containerID)->get();
-            $performanceData[$containerID]['cpuUsage'] = CPUUsage::where('container_id', $containerID)->get();
-            $performanceData[$containerID]['memoryUsage'] = MemoryUsage::where('container_id', $containerID)->get();
-            $performanceData[$containerID]['networkUsage'] = NetworkUsage::where('container_id', $containerID)->get();
+            $performanceData[$containerName]['diskUsage'] = DiskUsage::where('container_id', $containerID)->get();
+            $performanceData[$containerName]['cpuUsage'] = CPUUsage::where('container_id', $containerID)->get();
+            $performanceData[$containerName]['memoryUsage'] = MemoryUsage::where('container_id', $containerID)->get();
+            $performanceData[$containerName]['networkUsage'] = NetworkUsage::where('container_id', $containerID)->get();
         }
     
         return $performanceData;

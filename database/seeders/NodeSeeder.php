@@ -18,7 +18,12 @@ class NodeSeeder extends Seeder
         Node::factory()->create([
             'hostname' => 'DGOWafir',
             'ip_address' => '128.199.194.23',
-            
         ]);
+
+        Node::factory()->create([
+            'hostname' => 'LAPTOP-M9LTAKNR',
+            'ip_address' => '192.168.0.115',
+        ]);
+    
     }
 }

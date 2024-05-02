@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('disk_limit');
             $table->integer('mem_limit');
             $table->integer('net_limit');
+            $table->integer('cpu_limit');
             $table->unsignedBigInteger('node_id'); // Add the node_id column
             $table->foreign('node_id')->references('id')->on('nodes');
             $table->timestamps();

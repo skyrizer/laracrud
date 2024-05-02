@@ -17,6 +17,8 @@ class ContainerController extends Controller
     {
         $data = $request->json()->all();
 
+        \Log::info('Received container data: ' . json_encode($data['containers']));
+
         if (isset($data['node_id']) && isset($data['containers']) && is_array($data['containers'])) {
             $node_id = $data['node_id'];
 
@@ -40,6 +42,7 @@ class ContainerController extends Controller
                     'disk_limit' => '10',
                     'net_limit' => '10',
                     'mem_limit' => '10',
+                    'cpu_limit' => '10',
                     'node_id' => $node_id  // Associate container with node_id
                 ]);
             }
