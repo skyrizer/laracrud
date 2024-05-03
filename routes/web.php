@@ -25,11 +25,14 @@ route::post('api/register', [AuthController::class, 'register']);
 route::post('api/login', [AuthController::class, 'login']);
 
 // Refresh Token
-Route::put('/refreshToken', [AuthController::class, 'refreshToken'])->name('refresh.token');
+// Route::put('api/refreshToken', [AuthController::class, 'refreshToken'])->name('refresh.token');
 
 
 // Protected routes
 Route::prefix('api')->middleware(['auth:sanctum'])->group(function() {
+
+    // Refresh Token
+    Route::put('refreshToken', [AuthController::class, 'refreshToken'])->name('refresh.token');
 
     // User
     Route::post('logout', [AuthController::class, 'logout']);
