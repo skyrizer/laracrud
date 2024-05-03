@@ -14,18 +14,11 @@ use App\Http\Controllers\RolePermissionController;
 
 Route::middleware(['HttpRequest'])->group(function() {
 
-    // Route::post('storeContainers', [ContainerController::class, 'storeContainers']);
-    
-});
-
-Route::post('storeContainers', [ContainerController::class, 'storeContainers']);
-
-
 // Agent Controller
 route::post('/agent', [AgentController::class, 'handlePostRequest']);
 
 // Container
-//Route::post('storeContainers', [ContainerController::class, 'storeContainers']);
+Route::post('storeContainers', [ContainerController::class, 'storeContainers']);
 
 // Public
 route::post('api/register', [AuthController::class, 'register']);
@@ -75,3 +68,9 @@ Route::prefix('api')->middleware(['auth:sanctum'])->group(function() {
 
 
 });
+   
+
+    
+});
+
+

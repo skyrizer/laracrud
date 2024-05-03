@@ -15,11 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('url');
             $table->integer('status_code');
-            $table->unsignedBigInteger('node_id')->nullable(); // Nullable foreign key
+            $table->string('method');
+            $table->string('ip_address');
             $table->timestamps();
 
-            // Define foreign key constraint
-            $table->foreign('node_id')->references('id')->on('nodes')->onDelete('set null'); // Assuming 'nodes' is the referenced table
         });
     }
 

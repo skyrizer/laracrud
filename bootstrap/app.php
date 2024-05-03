@@ -4,6 +4,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\LogHttpRequests; // Import the middleware class
+use App\Http\Middleware\Test; // Import the middleware class
+
 
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -22,6 +24,8 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->alias([
             'HttpRequest' => LogHttpRequests::class,
+            'Test' => Test::class,
+
         ]);
 
         //

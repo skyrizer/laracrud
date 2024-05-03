@@ -19,7 +19,7 @@ class NodeController extends Controller
     {
         // Retrieve data from a model 
         $nodes = Node::all(); 
-    
+        
         // Return the data as JSON with the specified HTTP response code
         return response()->json(['nodes' => $nodes], Response::HTTP_OK);
     }

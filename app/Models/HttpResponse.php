@@ -12,7 +12,9 @@ class HttpResponse extends Model
     protected $fillable = [
         'url',
         'status_code',
-        'node_id',
+        'method',
+        'ip_address'
+
     ];
 
 }
