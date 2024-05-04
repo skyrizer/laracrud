@@ -40,30 +40,49 @@ class PerformanceController extends Controller
         return $centralizedData;
     }
 
-    public function performanceForAllContainers()
+    public function performanceForAllContainers(Request $request)
     {
-        // Fetch all containers
-        $containers = Container::all();
-    
+        // Get the nodeId from the request body
+        $nodeId = $request->input('nodeId');
+        
+        \Log::info('Node ID: ' . $nodeId);
+
+        // Fetch containers associated with the nodeId
+        $containers = Container::where('node_id', $nodeId)->get();
+
+        if ($containers->isEmpty()) {
+            return response()->json(['error' => 'No containers found for the provided node ID'], 404);
+        }
+
+        \Log::info('containers: ' . $containers);
+
+
         $performanceData = [];
     
         // Loop through each container
         foreach ($containers as $container) {
-    
-            $containerID = $container['id'];
-            $containerName = $container['name']; // Fetch container name
-    
-            \Log::info('Container ID: ' . $containerID);
+            $containerID = $container->id;
+            $containerName = $container->name;
     
             // Fetch performance data for the current container
-            $performanceData[$containerName]['diskUsage'] = DiskUsage::where('container_id', $containerID)->get();
-            $performanceData[$containerName]['cpuUsage'] = CPUUsage::where('container_id', $containerID)->get();
-            $performanceData[$containerName]['memoryUsage'] = MemoryUsage::where('container_id', $containerID)->get();
-            $performanceData[$containerName]['networkUsage'] = NetworkUsage::where('container_id', $containerID)->get();
+            $performanceData[$containerName]['diskUsage'] = DiskUsage::where('container_id', $containerID)
+                ->orderByDesc('created_at')
+                ->first() ?? [];
+    
+            $performanceData[$containerName]['cpuUsage'] = CPUUsage::where('container_id', $containerID)
+                ->orderByDesc('created_at')
+                ->first() ?? [];
+    
+            $performanceData[$containerName]['memoryUsage'] = MemoryUsage::where('container_id', $containerID)
+                ->orderByDesc('created_at')
+                ->first() ?? [];
+    
+            $performanceData[$containerName]['networkUsage'] = NetworkUsage::where('container_id', $containerID)
+                ->orderByDesc('created_at')
+                ->first() ?? [];
         }
     
         return $performanceData;
     }
-    
 
 }

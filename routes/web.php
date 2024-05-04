@@ -53,7 +53,7 @@ Route::prefix('api')->middleware(['auth:sanctum'])->group(function() {
 
     // Container performance
     Route::get('containerPerformance', [PerformanceController::class, 'performance']);
-    Route::get('allPerformance', [PerformanceController::class, 'performanceForAllContainers']);
+    Route::post('allPerformance', [PerformanceController::class, 'performanceForAllContainers']);
 
     // Permission
     Route::get('getPermissions', [PermissionController::class, 'index']);
