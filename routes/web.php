@@ -50,6 +50,10 @@ Route::prefix('api')->middleware(['auth:sanctum'])->group(function() {
 
     // Container
     Route::get('getContainers', [ContainerController::class, 'index']);
+    Route::put('updateContainer/{id}', [ContainerController::class, 'updateLimits']);
+    Route::get('getOneContainer/{id}', [ContainerController::class, 'show']);
+
+
 
     // Container performance
     Route::get('containerPerformance', [PerformanceController::class, 'performance']);

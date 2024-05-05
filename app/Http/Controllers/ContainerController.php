@@ -68,51 +68,49 @@ class ContainerController extends Controller
         return response()->json(['containers' => $containers], Response::HTTP_OK);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function updateLimits(Request $request, $id)
     {
-        //
+        $container = Container::findOrFail($id);
+
+        // Validate request data
+        $request->validate([
+            'disk_limit' => 'nullable|string',
+            'mem_limit' => 'nullable|string',
+            'cpu_limit' => 'nullable|string',
+            'net_limit' => 'nullable|string',
+        ]);
+
+        // Update container limits
+        if ($request->has('disk_limit')) {
+            $container->diskLimit = $request->disk_limit;
+        }
+        if ($request->has('mem_limit')) {
+            $container->memLimit = $request->mem_limit;
+        }
+        if ($request->has('cpu_limit')) {
+            $container->cpuLimit = $request->cpu_limit;
+        }
+        if ($request->has('net_limit')) {
+            $container->netLimit = $request->net_limit;
+        }
+
+        $container->save();
+
+        return response()->json(['message' => 'Container limits updated successfully'], 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreContainerRequest $request)
+    public function show($id)
     {
-        //
+        // Find the container by ID
+        $container = Container::find($id);
+
+        // Check if the container exists
+        if (!$container) {
+            return response()->json(['error' => 'Container not found'], 404);
+        }
+
+        // Return the container data
+        return response()->json(['container' => $container], Response::HTTP_OK);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Container $container)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Container $container)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateContainerRequest $request, Container $container)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Container $container)
-    {
-        //
-    }
 }
