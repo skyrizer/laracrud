@@ -70,28 +70,36 @@ class ContainerController extends Controller
 
     public function updateLimits(Request $request, $id)
     {
+
+        // Log the ID for debugging
+        \Log::info('Container ID: ' . $id);
+
         $container = Container::findOrFail($id);
 
+        \Log::info('Container Data: ' . $container);
+        \Log::info('Request: ' . $request);
         // Validate request data
         $request->validate([
-            'disk_limit' => 'nullable|string',
-            'mem_limit' => 'nullable|string',
-            'cpu_limit' => 'nullable|string',
-            'net_limit' => 'nullable|string',
+            'disk_limit' => 'nullable|integer',
+            'mem_limit' => 'nullable|integer',
+            'cpu_limit' => 'nullable|integer',
+            'net_limit' => 'nullable|integer',
         ]);
 
+        \Log::info('disk_limit: success');
         // Update container limits
         if ($request->has('disk_limit')) {
-            $container->diskLimit = $request->disk_limit;
+       
+            $container->disk_limit = $request->disk_limit;
         }
         if ($request->has('mem_limit')) {
-            $container->memLimit = $request->mem_limit;
+            $container->mem_limit = $request->mem_limit;
         }
         if ($request->has('cpu_limit')) {
-            $container->cpuLimit = $request->cpu_limit;
+            $container->cpu_limit = $request->cpu_limit;
         }
         if ($request->has('net_limit')) {
-            $container->netLimit = $request->net_limit;
+            $container->net_limit = $request->net_limit;
         }
 
         $container->save();
