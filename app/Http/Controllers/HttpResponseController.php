@@ -6,6 +6,8 @@ use App\Models\HttpResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreHttpResponseRequest;
 use App\Http\Requests\UpdateHttpResponseRequest;
+use Illuminate\Http\Response;
+
 
 class HttpResponseController extends Controller
 {
@@ -14,7 +16,11 @@ class HttpResponseController extends Controller
      */
     public function index()
     {
-        //
+        // Retrieve data from a model 
+        $httpResponse = HttpResponse::all(); 
+        
+        // Return the data as JSON with the specified HTTP response code
+        return response()->json(['httpResponse' => $httpResponse], Response::HTTP_OK);
     }
 
     /**

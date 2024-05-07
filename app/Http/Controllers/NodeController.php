@@ -79,11 +79,23 @@ class NodeController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
+   /**
+     * Delete a node by ID.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(node $node)
+    public function delete($id)
     {
-        //
+        $node = Node::find($id);
+
+        if (!$node) {
+            return response()->json(['message' => 'Node not found'], 404);
+        }
+
+        $node->delete();
+
+        return response()->json(['message' => 'Node deleted successfully'], 200);
     }
+    
 }
