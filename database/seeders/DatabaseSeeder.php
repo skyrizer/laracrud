@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ConfigSeeder::class);
         $this->call(RolePermissionSeeder::class);
         $this->call(NodeSeeder::class);
+        $this->call(NodeConfigSeeder::class);
+
 
 
         User::factory()->create([

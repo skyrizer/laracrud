@@ -16,13 +16,12 @@ class HttpResponseController extends Controller
      */
     public function index()
     {
-        // Retrieve data from a model 
-        $httpResponse = HttpResponse::all(); 
+        // Retrieve data from a model in reverse order
+        $httpResponse = HttpResponse::orderBy('id', 'desc')->get(); // Assuming 'id' is the primary key
         
         // Return the data as JSON with the specified HTTP response code
         return response()->json(['httpResponse' => $httpResponse], Response::HTTP_OK);
     }
-
     /**
      * Store a newly created resource in storage.
      */

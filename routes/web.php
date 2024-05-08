@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\NodeAccessController;
 use App\Http\Controllers\PerformanceController;
+use App\Models\NodeConfig;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AgentController;
@@ -12,6 +13,8 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserRoleController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\HttpResponseController;
+use App\Http\Controllers\NodeConfigController;
+
 
 
 Route::middleware(['HttpRequest'])->group(function () {
@@ -25,10 +28,6 @@ Route::middleware(['HttpRequest'])->group(function () {
     // Public
     route::post('api/register', [AuthController::class, 'register']);
     route::post('api/login', [AuthController::class, 'login']);
-
-    // Refresh Token
-// Route::put('api/refreshToken', [AuthController::class, 'refreshToken'])->name('refresh.token');
-
 
     // Protected routes
     Route::prefix('api')->middleware(['auth:sanctum'])->group(function () {
@@ -79,6 +78,8 @@ Route::middleware(['HttpRequest'])->group(function () {
         // HttpResponse
         Route::get('getHttpResponses', [HttpResponseController::class, 'index']);
 
+        // Node Config
+        Route::get('getNodeConfigs', [NodeConfigController::class, 'index']);
 
 
     });

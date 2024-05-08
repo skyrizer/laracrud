@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('node_configs', function (Blueprint $table) {
             $table->unsignedBigInteger('config_id');
             $table->unsignedBigInteger('node_id');
+            $table->integer('value');
 
             $table->primary(['config_id', 'node_id']);
 

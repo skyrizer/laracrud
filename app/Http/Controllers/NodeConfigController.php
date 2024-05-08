@@ -6,6 +6,8 @@ use App\Models\NodeConfig;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreNodeConfigRequest;
 use App\Http\Requests\UpdateNodeConfigRequest;
+use Illuminate\Http\Response;
+
 
 class NodeConfigController extends Controller
 {
@@ -14,7 +16,11 @@ class NodeConfigController extends Controller
      */
     public function index()
     {
-        //
+        // Retrieve all node configurations
+        $nodeConfigs = NodeConfig::all();
+        
+        // Return the node configurations as JSON with HTTP response code 200 (OK)
+        return response()->json(['nodeConfigs' => $nodeConfigs], Response::HTTP_OK);
     }
 
     /**
