@@ -14,14 +14,11 @@ class NodeConfigSeeder extends Seeder
      */
     public function run(): void
     {
-        
-        
         NodeConfig::factory()->create([
             'config_id' => 1,
             'node_id' => 2,
             'value' => '10'
         ]);
     
-
     }
 }

@@ -80,6 +80,8 @@ Route::middleware(['HttpRequest'])->group(function () {
 
         // Node Config
         Route::get('getNodeConfigs', [NodeConfigController::class, 'index']);
+        Route::post('addNodeConfig', [NodeConfigController::class, 'create']);
+
 
 
     });

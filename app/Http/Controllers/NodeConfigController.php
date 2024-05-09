@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreNodeConfigRequest;
 use App\Http\Requests\UpdateNodeConfigRequest;
 use Illuminate\Http\Response;
+use Illuminate\Http\Request;
+
 
 
 class NodeConfigController extends Controller
@@ -16,58 +18,37 @@ class NodeConfigController extends Controller
      */
     public function index()
     {
-        // Retrieve all node configurations
-        $nodeConfigs = NodeConfig::all();
-        
-        // Return the node configurations as JSON with HTTP response code 200 (OK)
+        // Retrieve all node configurations with their related data and group them by node_id
+        $nodeConfigs = NodeConfig::with('config', 'node')
+                        ->get()
+                        ->groupBy('node_id');
+    
+        // Return the grouped node configurations with related data as JSON with HTTP response code 200 (OK)
         return response()->json(['nodeConfigs' => $nodeConfigs], Response::HTTP_OK);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+   
+      public function create(Request $request)
     {
-        //
+         //validate fields
+         $attrs = $request->validate([
+            'config_id' => 'required|int',
+            'node_id' => 'required|int',
+            'value' => 'required|int',
+
+        ]);
+
+        //create user
+        $node = NodeConfig::create([
+            'config_id' => $attrs['config_id'],
+            'node_id' => $attrs['node_id'],
+            'value' => $attrs['value'],
+
+        ]);
+
+        //return user & token in response
+        return response([
+            'node' => $node,
+        ], 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreNodeConfigRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(NodeConfig $nodeConfig)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(NodeConfig $nodeConfig)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateNodeConfigRequest $request, NodeConfig $nodeConfig)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(NodeConfig $nodeConfig)
-    {
-        //
-    }
 }
