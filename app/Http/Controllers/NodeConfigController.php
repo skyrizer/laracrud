@@ -26,6 +26,17 @@ class NodeConfigController extends Controller
         // Return the grouped node configurations with related data as JSON with HTTP response code 200 (OK)
         return response()->json(['nodeConfigs' => $nodeConfigs], Response::HTTP_OK);
     }
+
+    public function getByNodeId($nodeId)
+    {
+        // Retrieve node configurations for the specified node ID with their related data
+        $nodeConfigs = NodeConfig::with('config', 'node')
+                        ->where('node_id', $nodeId)
+                        ->get();
+        
+        // Return the node configurations with related data as JSON with HTTP response code 200 (OK)
+        return response()->json(['nodeConfigs' => $nodeConfigs], Response::HTTP_OK);
+    }
    
       public function create(Request $request)
     {
