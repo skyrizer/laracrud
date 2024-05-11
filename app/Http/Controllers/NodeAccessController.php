@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreNodeAccessRequest;
 use App\Http\Requests\UpdateNodeAccessRequest;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
 
 
 class NodeAccessController extends Controller
@@ -18,7 +20,11 @@ class NodeAccessController extends Controller
      */
     public function index()
     {
-        //
+        // Retrieve data from a model 
+        $nodeAccesses = NodeAccess::all(); 
+    
+        // Return the data as JSON with the specified HTTP response code
+        return response()->json(['node accesses' => $nodeAccesses], Response::HTTP_OK);
     }
 
     /**
@@ -47,43 +53,47 @@ class NodeAccessController extends Controller
         ], 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreNodeAccessRequest $request)
+
+    public function update($id, Request $request)
     {
-        //
+        // Find the config instance by ID
+        $nodeAccesses = NodeAccess::find($id);
+
+        // If config instance exists, update it
+        if ($nodeAccesses) {
+
+            // Validate the incoming request data
+            $validatedData = $request->validate([
+                'user_id' => 'required|int',
+                'node_id' => 'required|int',
+                'role_id' => 'required|int',
+            ]);
+
+            // Update the config instance with validated data
+            $nodeAccesses->user_id = $validatedData['user_id'];
+            $nodeAccesses->node_id = $validatedData['node_id'];
+            $nodeAccesses->role_id = $validatedData['role_id'];
+
+            $nodeAccesses->save();
+
+            return response()->json(['message' => 'Node access updated successfully'], 200);
+        } else {
+            return response()->json(['message' => 'Node access not found'], 404);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(NodeAccess $nodeAccess)
+
+    public function delete($id)
     {
-        //
+        $nodeAccesses = NodeAccess::find($id);
+
+        if (!$nodeAccesses) {
+            return response()->json(['message' => 'Node access not found'], 404);
+        }
+
+        $nodeAccesses->delete();
+
+        return response()->json(['message' => 'Node access deleted successfully'], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(NodeAccess $nodeAccess)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateNodeAccessRequest $request, NodeAccess $nodeAccess)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(NodeAccess $nodeAccess)
-    {
-        //
-    }
 }

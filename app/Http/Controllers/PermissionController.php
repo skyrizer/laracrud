@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
 use Illuminate\Http\Response;
+use Illuminate\Http\Request;
+
 
 class PermissionController extends Controller
 {
@@ -20,14 +22,6 @@ class PermissionController extends Controller
     
         // Return the data as JSON with the specified HTTP response code
         return response()->json(['permissions' => $permissions], Response::HTTP_OK);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -51,35 +45,28 @@ class PermissionController extends Controller
         ], 200);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Permission $permission)
+    public function update($id, Request $request)
     {
-        //
+        // Find the config instance by ID
+        $permission = Permission::find($id);
+
+        // If config instance exists, update it
+        if ($permission) {
+            // Validate the incoming request data
+            $validatedData = $request->validate([
+                'name' => 'required|string',
+              
+            ]);
+
+            // Update the config instance with validated data
+            $permission->name = $validatedData['name'];
+            $permission->save();
+
+            return response()->json(['message' => 'Role updated successfully'], 200);
+        } else {
+            return response()->json(['message' => 'Role not found'], 404);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Permission $permission)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdatePermissionRequest $request, Permission $permission)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Permission $permission)
-    {
-        //
-    }
 }

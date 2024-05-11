@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\NodeAccessController;
 use App\Http\Controllers\PerformanceController;
-use App\Models\NodeConfig;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AgentController;
@@ -48,14 +47,14 @@ Route::middleware(['HttpRequest'])->group(function () {
 
         // Config
         Route::get('getConfigs', [ConfigController::class, 'index']);
-
+        Route::post('addConfig', [ConfigController::class, 'store']);
+        Route::delete('delConfig/{id}', [ConfigController::class, 'delete']);
+        Route::put('updateConfig/{id}', [ConfigController::class, 'update']);
 
         // Container
         Route::get('getContainers', [ContainerController::class, 'index']);
         Route::put('updateContainer/{id}', [ContainerController::class, 'updateLimits']);
         Route::get('getOneContainer/{id}', [ContainerController::class, 'show']);
-
-
 
         // Container performance
         Route::get('containerPerformance', [PerformanceController::class, 'performance']);
@@ -64,6 +63,8 @@ Route::middleware(['HttpRequest'])->group(function () {
         // Permission
         Route::get('getPermissions', [PermissionController::class, 'index']);
         Route::post('addPermission', [PermissionController::class, 'store']);
+        Route::put('updatePermission/{id}', [PermissionController::class, 'update']);
+
 
         // Role Permission
         Route::post('addRolePermission', [RolePermissionController::class, 'store']);
@@ -71,17 +72,28 @@ Route::middleware(['HttpRequest'])->group(function () {
         // UserRole
         Route::get('getRoles', [UserRoleController::class, 'index']);
         Route::post('addRole', [UserRoleController::class, 'store']);
+        Route::put('updateRole/{id}', [ContainerController::class, 'update']);
+
+
 
         // Node Access
         Route::post('addNodeAccess', [NodeAccessController::class, 'create']);
+        Route::get('getNodeAccess', [NodeAccessController::class, 'index']);
+        Route::put('updateNodeAccess/{id}', [ContainerController::class, 'update']);
+        Route::delete('deleteNodeAccess/{id}', [ContainerController::class, 'delete']);
+
 
         // HttpResponse
         Route::get('getHttpResponses', [HttpResponseController::class, 'index']);
+
 
         // Node Config
         Route::get('getNodeConfigs', [NodeConfigController::class, 'index']);
         Route::post('addNodeConfig', [NodeConfigController::class, 'create']);
         Route::get('getNodeConfig/{nodeId}', [NodeConfigController::class, 'getByNodeId']);
+
+
+
 
 
 
