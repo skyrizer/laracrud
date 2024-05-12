@@ -72,15 +72,17 @@ Route::middleware(['HttpRequest'])->group(function () {
         // UserRole
         Route::get('getRoles', [UserRoleController::class, 'index']);
         Route::post('addRole', [UserRoleController::class, 'store']);
-        Route::put('updateRole/{id}', [ContainerController::class, 'update']);
+        Route::put('updateRole/{id}', [UserRoleController::class, 'update']);
 
 
 
         // Node Access
         Route::post('addNodeAccess', [NodeAccessController::class, 'create']);
         Route::get('getNodeAccess', [NodeAccessController::class, 'index']);
-        Route::put('updateNodeAccess/{id}', [ContainerController::class, 'update']);
-        Route::delete('deleteNodeAccess/{id}', [ContainerController::class, 'delete']);
+        Route::put('updateNodeAccess/{id}', [NodeAccessController::class, 'update']);
+        Route::delete('deleteNodeAccess/{id}', [NodeAccessController::class, 'delete']);
+        Route::get('getNodeAccess/{nodeId}', [NodeAccessController::class, 'getByNodeId']);
+
 
 
         // HttpResponse
@@ -91,6 +93,8 @@ Route::middleware(['HttpRequest'])->group(function () {
         Route::get('getNodeConfigs', [NodeConfigController::class, 'index']);
         Route::post('addNodeConfig', [NodeConfigController::class, 'create']);
         Route::get('getNodeConfig/{nodeId}', [NodeConfigController::class, 'getByNodeId']);
+        Route::delete('deleteNodeConfig/{id}', [NodeConfigController::class, 'delete']);
+
 
 
 

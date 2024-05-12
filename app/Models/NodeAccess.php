@@ -20,4 +20,20 @@ class NodeAccess extends Model
         'node_id',
     ];
 
+    public function role()
+    {
+        return $this->belongsTo(UserRole::class);
+    }
+
+    public function node()
+    {
+        return $this->belongsTo(Node::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+
 }

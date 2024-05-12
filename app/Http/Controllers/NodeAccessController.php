@@ -27,6 +27,17 @@ class NodeAccessController extends Controller
         return response()->json(['node accesses' => $nodeAccesses], Response::HTTP_OK);
     }
 
+    public function getByNodeId($nodeId)
+    {
+        // Retrieve node configurations for the specified node ID with their related data
+        $nodeAccesses = NodeAccess::with('role', 'node', 'user')
+                        ->where('node_id', $nodeId)
+                        ->get();
+        
+        // Return the node configurations with related data as JSON with HTTP response code 200 (OK)
+        return response()->json(['nodeAccesses' => $nodeAccesses], Response::HTTP_OK);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
