@@ -94,17 +94,19 @@ class NodeAccessController extends Controller
     }
 
 
-    public function delete($id)
+    public function delete($nodeId, $userId, $roleId)
     {
-        $nodeAccesses = NodeAccess::find($id);
-
-        if (!$nodeAccesses) {
+        // Find the node config based on both node ID and config ID
+        $nodeAccess = NodeAccess::where('node_id', $nodeId)->where('role_id', $roleId)->where('user_id', $userId)->first();
+    
+        if (!$nodeAccess) {
             return response()->json(['message' => 'Node access not found'], 404);
         }
-
-        $nodeAccesses->delete();
-
+    
+        $nodeAccess->delete();
+    
         return response()->json(['message' => 'Node access deleted successfully'], 200);
     }
+
 
 }

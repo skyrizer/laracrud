@@ -68,6 +68,9 @@ Route::middleware(['HttpRequest'])->group(function () {
 
         // Role Permission
         Route::post('addRolePermission', [RolePermissionController::class, 'store']);
+        Route::get('rolePermissions', [RolePermissionController::class, 'index']);
+        Route::delete('delRolePermission', [RolePermissionController::class, 'delete']);
+
 
         // UserRole
         Route::get('getRoles', [UserRoleController::class, 'index']);
@@ -80,7 +83,7 @@ Route::middleware(['HttpRequest'])->group(function () {
         Route::post('addNodeAccess', [NodeAccessController::class, 'create']);
         Route::get('getNodeAccess', [NodeAccessController::class, 'index']);
         Route::put('updateNodeAccess/{id}', [NodeAccessController::class, 'update']);
-        Route::delete('deleteNodeAccess/{id}', [NodeAccessController::class, 'delete']);
+        Route::delete('deleteNodeAccess/{nodeId}/{userId}/{roleId}', [NodeAccessController::class, 'delete']);
         Route::get('getNodeAccess/{nodeId}', [NodeAccessController::class, 'getByNodeId']);
 
 

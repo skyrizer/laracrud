@@ -6,6 +6,8 @@ use App\Models\RolePermission;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRolePermissionRequest;
 use App\Http\Requests\UpdateRolePermissionRequest;
+use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 
 class RolePermissionController extends Controller
 {
@@ -14,16 +16,13 @@ class RolePermissionController extends Controller
      */
     public function index()
     {
-        //
+        $rolePermissions = RolePermission::with('config', 'node')
+                        ->get();
+            
+    
+        return response()->json(['rolePermissions' => $rolePermissions], Response::HTTP_OK);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -50,35 +49,18 @@ class RolePermissionController extends Controller
         
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(RolePermission $rolePermission)
+    public function delete($roleId, $permissionId)
     {
-        //
+        // Find the node config based on both node ID and config ID
+        $rolePermission = RolePermission::where('role_id', $roleId)->where('permission_id', $permissionId)->first();
+    
+        if (!$rolePermission) {
+            return response()->json(['message' => 'Role permission not found'], 404);
+        }
+    
+        $rolePermission->delete();
+    
+        return response()->json(['message' => 'Role permission deleted successfully'], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(RolePermission $rolePermission)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateRolePermissionRequest $request, RolePermission $rolePermission)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(RolePermission $rolePermission)
-    {
-        //
-    }
 }
