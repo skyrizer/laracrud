@@ -62,17 +62,17 @@ class NodeConfigController extends Controller
         ], 200);
     }
 
-    public function delete($id)
+    public function delete($nodeId, $configId)
     {
-        $nodeConfig = NodeConfig::find($id);
-
+        // Find the node config based on both node ID and config ID
+        $nodeConfig = NodeConfig::where('node_id', $nodeId)->where('id', $configId)->first();
+    
         if (!$nodeConfig) {
             return response()->json(['message' => 'Node config not found'], 404);
         }
-
+    
         $nodeConfig->delete();
-
+    
         return response()->json(['message' => 'Node config deleted successfully'], 200);
     }
-
 }

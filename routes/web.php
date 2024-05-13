@@ -93,7 +93,7 @@ Route::middleware(['HttpRequest'])->group(function () {
         Route::get('getNodeConfigs', [NodeConfigController::class, 'index']);
         Route::post('addNodeConfig', [NodeConfigController::class, 'create']);
         Route::get('getNodeConfig/{nodeId}', [NodeConfigController::class, 'getByNodeId']);
-        Route::delete('deleteNodeConfig/{id}', [NodeConfigController::class, 'delete']);
+        Route::delete('deleteNodeConfig/{nodeId}/{configId}', [NodeConfigController::class, 'delete']);
 
 
 
