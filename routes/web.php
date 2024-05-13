@@ -13,6 +13,8 @@ use App\Http\Controllers\UserRoleController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\HttpResponseController;
 use App\Http\Controllers\NodeConfigController;
+use App\Http\Controllers\ForgotPasswordController;
+
 
 
 
@@ -27,6 +29,7 @@ Route::middleware(['HttpRequest'])->group(function () {
     // Public
     route::post('api/register', [AuthController::class, 'register']);
     route::post('api/login', [AuthController::class, 'login']);
+    route::post('api/forgotPassword', [ForgotPasswordController::class, 'sendResetLinkEmail']);
 
     // Protected routes
     Route::prefix('api')->middleware(['auth:sanctum'])->group(function () {
