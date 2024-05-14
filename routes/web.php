@@ -34,6 +34,7 @@ Route::middleware(['HttpRequest'])->group(function () {
     // Protected routes
     Route::prefix('api')->middleware(['auth:sanctum'])->group(function () {
 
+
         // Refresh Token
         Route::put('refreshToken', [AuthController::class, 'refreshToken'])->name('refresh.token');
 
@@ -93,6 +94,8 @@ Route::middleware(['HttpRequest'])->group(function () {
 
         // HttpResponse
         Route::get('getHttpResponses', [HttpResponseController::class, 'index']);
+        Route::post('searchByCode', [HttpResponseController::class, 'searchByCode']);
+
 
 
         // Node Config

@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreHttpResponseRequest;
 use App\Http\Requests\UpdateHttpResponseRequest;
 use Illuminate\Http\Response;
+use Illuminate\Http\Request;
+
 
 
 class HttpResponseController extends Controller
@@ -22,43 +24,29 @@ class HttpResponseController extends Controller
         // Return the data as JSON with the specified HTTP response code
         return response()->json(['httpResponse' => $httpResponse], Response::HTTP_OK);
     }
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreHttpResponseRequest $request)
+   
+    public function searchByCode(Request $request)
     {
-        //
+        // Validate the incoming request to ensure status_code is provided and is a string
+        $request->validate([
+            'status_code' => 'required|int',
+        ]);
+
+        // Retrieve the status code from the request
+        $statusCode = $request->input('status_code');
+
+        // Build the query
+        $query = HttpResponse::query();
+
+        // Apply status code filter
+        $query->where('status_code', 'like', $statusCode . '%');
+
+        // Execute the query and get the results
+        $httpResponse = $query->get();
+
+        // Return the responses as a JSON response
+        return response()->json(['httpResponse' => $httpResponse], Response::HTTP_OK);
+        // return response()->json($responses);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(HttpResponse $httpResponse)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(HttpResponse $httpResponse)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateHttpResponseRequest $request, HttpResponse $httpResponse)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(HttpResponse $httpResponse)
-    {
-        //
-    }
 }

@@ -19,4 +19,15 @@ class RolePermission extends Model
         'permission_id'
     ];
 
+
+    public function role()
+    {
+        return $this->belongsTo(UserRole::class);
+    }
+
+    public function permission()
+    {
+        return $this->belongsTo(Permission::class);
+    }
+
 }
