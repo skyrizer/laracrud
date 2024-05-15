@@ -82,7 +82,7 @@ class AuthController extends Controller
     public function user()
     {
         return response([
-            'user' => auth()->user()
+            'users' => [auth()->user()]
         ], 200);
     }
 

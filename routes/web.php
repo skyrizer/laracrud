@@ -95,6 +95,9 @@ Route::middleware(['HttpRequest'])->group(function () {
         // HttpResponse
         Route::get('getHttpResponses', [HttpResponseController::class, 'index']);
         Route::post('searchByCode', [HttpResponseController::class, 'searchByCode']);
+        Route::post('searchByCode', [HttpResponseController::class, 'searchByCode']);
+        Route::post('searchByDate', [HttpResponseController::class, 'searchByDate']);
+
 
 
 
