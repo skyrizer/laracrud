@@ -13,7 +13,7 @@ use App\Http\Controllers\UserRoleController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\HttpResponseController;
 use App\Http\Controllers\NodeConfigController;
-use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\ForgotPwdController;
 
 
 
@@ -30,14 +30,7 @@ Route::middleware(['HttpRequest'])->group(function () {
     // Public
     route::post('api/register', [AuthController::class, 'register']);
     route::post('api/login', [AuthController::class, 'login']);
-    // route::post('api/forgotPassword', [ForgotPasswordController::class, 'sendResetLinkEmail']);
-    Route::group(['namespace' => 'App\Http\Controllers'], function () {
-        // Password Reset Routes
-        Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-        Route::post('password/reset', 'ForgotPasswordController@reset')->name('password.update');
-        Route::get('password/reset/{token}', 'ForgotPasswordController@showResetForm')->name('password.reset');
-    });
-
+   
     // Protected routes
     Route::prefix('api')->middleware(['auth:sanctum'])->group(function () {
 

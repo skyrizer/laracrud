@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth; // Import the Auth facade
 use Illuminate\Support\Facades\Http;
-
+use Illuminate\Support\Facades\Password;
+use Illuminate\Validation\ValidationException;
 
 
 
@@ -114,4 +115,6 @@ class AuthController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+  
 }
