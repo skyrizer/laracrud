@@ -16,7 +16,7 @@ class ConfigSeeder extends Seeder
     {
         Config::firstOrCreate([
             'name' => 'interval time',
-            'unit' => 'minute'
+            'unit' => 'seconds'
         ]);
 
     }
