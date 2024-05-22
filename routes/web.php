@@ -31,6 +31,8 @@ Route::middleware(['HttpRequest'])->group(function () {
     route::post('api/register', [AuthController::class, 'register']);
     route::post('api/login', [AuthController::class, 'login']);
    
+    Route::post('getAgentContainers', [ContainerController::class, 'agentContainer']);
+
     // Protected routes
     Route::prefix('api')->middleware(['auth:sanctum'])->group(function () {
 

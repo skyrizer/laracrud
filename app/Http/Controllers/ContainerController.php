@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Container;
+use App\Models\Node;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreContainerRequest;
 use App\Http\Requests\UpdateContainerRequest;
@@ -68,6 +69,28 @@ class ContainerController extends Controller
         return response()->json(['containers' => $containers], Response::HTTP_OK);
     }
 
+    public function agentContainer(Request $request)
+    {
+        // Validate the request to ensure 'ip_address' is provided
+        $request->validate([
+            'ip_address' => 'required|ip',
+        ]);
+
+        // Retrieve the node based on the provided IP address
+        $node = Node::where('ip_address', $request->ip_address)->first();
+
+        // Check if the node exists
+        if (!$node) {
+            return response()->json(['error' => 'Node not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        // Fetch containers based on the node ID
+        $containers = Container::where('node_id', $node->id)->get();
+
+        // Return the container data as JSON with the specified HTTP response code
+        return response()->json(['containers' => $containers], Response::HTTP_OK);
+    }
+
     public function updateLimits(Request $request, $id)
     {
 
@@ -89,7 +112,7 @@ class ContainerController extends Controller
         \Log::info('disk_limit: success');
         // Update container limits
         if ($request->has('disk_limit')) {
-       
+
             $container->disk_limit = $request->disk_limit;
         }
         if ($request->has('mem_limit')) {
