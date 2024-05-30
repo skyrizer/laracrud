@@ -14,6 +14,10 @@ use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\HttpResponseController;
 use App\Http\Controllers\NodeConfigController;
 use App\Http\Controllers\ForgotPwdController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\NodeServiceController;
+
+
 
 
 
@@ -84,7 +88,6 @@ Route::middleware(['HttpRequest'])->group(function () {
         Route::put('updateRole/{id}', [UserRoleController::class, 'update']);
 
 
-
         // Node Access
         Route::post('addNodeAccess', [NodeAccessController::class, 'create']);
         Route::get('getNodeAccess', [NodeAccessController::class, 'index']);
@@ -92,15 +95,11 @@ Route::middleware(['HttpRequest'])->group(function () {
         Route::delete('deleteNodeAccess/{nodeId}/{userId}/{roleId}', [NodeAccessController::class, 'delete']);
         Route::get('getNodeAccess/{nodeId}', [NodeAccessController::class, 'getByNodeId']);
 
-
-
         // HttpResponse
         Route::get('getHttpResponses', [HttpResponseController::class, 'index']);
         Route::post('searchByCode', [HttpResponseController::class, 'searchByCode']);
         Route::post('searchByCode', [HttpResponseController::class, 'searchByCode']);
         Route::post('searchByDate', [HttpResponseController::class, 'searchByDate']);
-
-
 
 
         // Node Config
@@ -110,9 +109,15 @@ Route::middleware(['HttpRequest'])->group(function () {
         Route::delete('deleteNodeConfig/{nodeId}/{configId}', [NodeConfigController::class, 'delete']);
 
 
+        // Service
+        Route::get('getServices', [ServiceController::class, 'index']);
+        Route::post('addService', [ServiceController::class, 'store']);
 
 
-
+        // Node Services
+        Route::get('getServicesByNode', [NodeServiceController::class, 'index']);
+        Route::post('addNodeService', [NodeServiceController::class, 'create']);
+        Route::delete('deleteNodeService/{nodeId}/{serviceId}', [NodeServiceController::class, 'delete']);
 
 
     });

@@ -25,13 +25,6 @@ class UserRoleController extends Controller
         return response()->json(['roles' => $roles], Response::HTTP_OK);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
