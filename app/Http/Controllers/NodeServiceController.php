@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\NodeService;
+use App\Models\Node;
+use App\Models\Service;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreNodeServiceRequest;
 use App\Http\Requests\UpdateNodeServiceRequest;
@@ -15,33 +17,59 @@ class NodeServiceController extends Controller
 {
 
 
-    public function getByNodeId($nodeId)
+
+    public function getByNodeId(Request $request)
     {
-        // Retrieve node configurations for the specified node ID with their related data
-        $nodeServices = NodeService::with('service', 'user')
-                        ->where('node_id', $nodeId)
-                        ->get();
-        
-        // Return the node configurations with related data as JSON with HTTP response code 200 (OK)
-        return response()->json(['nodeServices' => $nodeServices], Response::HTTP_OK);
+        // Validate the request to ensure 'ip_address' is provided
+        $request->validate([
+            'ip_address' => 'required|ip',
+        ]);
+    
+        // Retrieve the node based on the provided IP address with related services
+        $node = Node::with('services')->where('ip_address', $request->ip_address)->first();
+    
+        // Log the node data
+        \Log::info('Node Data:', ['node' => $node]);
+    
+        // Check if the node exists
+        if (!$node) {
+            return response()->json(['error' => 'Node not found'], Response::HTTP_NOT_FOUND);
+        }
+    
+        // Log the services data
+        \Log::info('Node Services:', ['services' => $node->services]);
+    
+        // Check if the node has related services
+        if ($node->services->isEmpty()) {
+            return response()->json(['message' => 'No services found for this node'], Response::HTTP_OK);
+        }
+    
+        // Return the node services data as JSON with the specified HTTP response code
+        return response()->json(['nodeServices' => $node->services], Response::HTTP_OK);
     }
 
+    
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $nodeServices = NodeService::with('service', 'node')
+            ->get();
+
+
+        return response()->json(['nodeServices' => $nodeServices], Response::HTTP_OK);
     }
 
-     /**
+
+    /**
      * Show the form for creating a new resource.
      */
     public function create(Request $request)
     {
 
-          //validate fields
-          $attrs = $request->validate([
+        //validate fields
+        $attrs = $request->validate([
             'service_id' => 'required|exists:service,id',
             'node_id' => 'required|exists:node,id',
         ]);
@@ -95,13 +123,13 @@ class NodeServiceController extends Controller
     {
         // Find the node config based on both node ID and config ID
         $nodeService = NodeService::where('node_id', $nodeId)->where('service_id', $serviceId)->first();
-    
+
         if (!$nodeService) {
             return response()->json(['message' => 'Node service not found'], 404);
         }
-    
+
         $nodeService->delete();
-    
+
         return response()->json(['message' => 'Node service deleted successfully'], 200);
     }
 }

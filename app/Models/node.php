@@ -9,7 +9,7 @@ class Node extends Model
 {
     use HasFactory;
 
-     /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -19,4 +19,8 @@ class Node extends Model
         'ip_address',
     ];
 
+    public function services()
+    {
+        return $this->belongsToMany(Service::class, 'node_services', 'node_id', 'service_id');
+    }
 }

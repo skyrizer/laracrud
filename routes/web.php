@@ -115,7 +115,8 @@ Route::middleware(['HttpRequest'])->group(function () {
 
 
         // Node Services
-        Route::get('getServicesByNode', [NodeServiceController::class, 'index']);
+        Route::get('getServicesByNode', [NodeServiceController::class, 'getByNodeId']);
+        Route::get('getAllNodeServices', [NodeServiceController::class, 'index']);
         Route::post('addNodeService', [NodeServiceController::class, 'create']);
         Route::delete('deleteNodeService/{nodeId}/{serviceId}', [NodeServiceController::class, 'delete']);
 

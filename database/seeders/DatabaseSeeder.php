@@ -18,10 +18,10 @@ class DatabaseSeeder extends Seeder
         $this->call(ConfigSeeder::class);
         $this->call(RolePermissionSeeder::class);
         $this->call(NodeSeeder::class);
+        $this->call(NodeServiceSeeder::class);
         $this->call(NodeConfigSeeder::class);
         $this->call(ServiceSeeder::class);
-        $this->call(NodeServiceSeeder::class);
-
+        
 
 
 
