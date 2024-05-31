@@ -25,8 +25,8 @@ class NodeServiceController extends Controller
             'ip_address' => 'required|ip',
         ]);
     
-        // Retrieve the node based on the provided IP address with related services
-        $node = Node::with('services')->where('ip_address', $request->ip_address)->first();
+        // Retrieve the node based on the provided IP address with related services and their background processes
+        $node = Node::with(['services.backgroundProcesses'])->where('ip_address', $request->ip_address)->first();
     
         // Log the node data
         \Log::info('Node Data:', ['node' => $node]);
@@ -44,7 +44,7 @@ class NodeServiceController extends Controller
             return response()->json(['message' => 'No services found for this node'], Response::HTTP_OK);
         }
     
-        // Return the node services data as JSON with the specified HTTP response code
+        // Return the node services data along with background processes as JSON with the specified HTTP response code
         return response()->json(['nodeServices' => $node->services], Response::HTTP_OK);
     }
 
@@ -76,8 +76,7 @@ class NodeServiceController extends Controller
 
         //create user
         $nodeService = NodeService::create([
-            'user_id' => $attrs['user_id'],
-            'role_id' => $attrs['role_id'],
+            'service_id' => $attrs['service_id'],
             'node_id' => $attrs['node_id']
         ]);
 

@@ -13,5 +13,10 @@ class Service extends Model
     {
         return $this->belongsToMany(Node::class, 'node_services', 'service_id', 'node_id');
     }
+
+    public function backgroundProcesses()
+    {
+        return $this->hasMany(BackgroundProcess::class);
+    }
     
 }
