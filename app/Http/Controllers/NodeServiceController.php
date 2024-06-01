@@ -16,8 +16,6 @@ use Illuminate\Http\Request;
 class NodeServiceController extends Controller
 {
 
-
-
     public function getByNodeId(Request $request)
     {
         // Validate the request to ensure 'ip_address' is provided
@@ -86,37 +84,6 @@ class NodeServiceController extends Controller
         ], 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreNodeServiceRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(NodeService $nodeService)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(NodeService $nodeService)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateNodeServiceRequest $request, NodeService $nodeService)
-    {
-        //
-    }
 
     public function delete($nodeId, $serviceId)
     {

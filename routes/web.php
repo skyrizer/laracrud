@@ -16,6 +16,8 @@ use App\Http\Controllers\NodeConfigController;
 use App\Http\Controllers\ForgotPwdController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\NodeServiceController;
+use App\Http\Controllers\BackgroundProcessController;
+
 
 
 
@@ -120,6 +122,12 @@ Route::middleware(['HttpRequest'])->group(function () {
         Route::get('getAllNodeServices', [NodeServiceController::class, 'index']);
         Route::post('addNodeService', [NodeServiceController::class, 'create']);
         Route::delete('deleteNodeService/{nodeId}/{serviceId}', [NodeServiceController::class, 'delete']);
+
+        // Background Process
+        Route::get('getBpByService/{serviceId}', [BackgroundProcessController::class, 'getByServiceId']);
+        Route::post('addBackgroundProcess', [BackgroundProcessController::class, 'store']);
+        Route::delete('deleteBackgroundProcess/{bpId}', [NodeServiceController::class, 'delete']);
+
 
 
     });
