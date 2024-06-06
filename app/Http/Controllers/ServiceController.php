@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use Illuminate\Http\Response;
+use Illuminate\Http\Request;
+
 
 class ServiceController extends Controller
 {
@@ -26,8 +28,13 @@ class ServiceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreServiceRequest $request)
+    public function store(Request $request)
     {
+
+        \Log::info('Request data: ', $request->all());
+        \Log::info('TEST');
+
+
          //validate fields
          $attrs = $request->validate([
             'name' => 'required'

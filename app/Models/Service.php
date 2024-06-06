@@ -18,5 +18,14 @@ class Service extends Model
     {
         return $this->hasMany(BackgroundProcess::class);
     }
+
+        /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+    ];
     
 }
