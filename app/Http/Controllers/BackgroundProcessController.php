@@ -38,7 +38,7 @@ class BackgroundProcessController extends Controller
          //validate fields
          $attrs = $request->validate([
             'name' => 'required|string',
-            'service_id' => 'required|exists:service,id',
+            'service_id' => 'required|exists:services,id',
 
         ]);
 

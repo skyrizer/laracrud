@@ -68,9 +68,11 @@ class NodeServiceController extends Controller
 
         //validate fields
         $attrs = $request->validate([
-            'service_id' => 'required|exists:service,id',
-            'node_id' => 'required|exists:node,id',
+            'service_id' => 'required|exists:services,id',
+            'node_id' => 'required|exists:nodes,id',
         ]);
+
+
 
         //create user
         $nodeService = NodeService::create([

@@ -14,4 +14,14 @@ class BackgroundProcess extends Model
         {
             return $this->belongsTo(Service::class);
         }
+
+              /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'service_id',
+    ];
 }

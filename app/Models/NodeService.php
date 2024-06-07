@@ -19,4 +19,14 @@ class NodeService extends Model
         return $this->belongsTo(Node::class);
     }
 
+     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'service_id',
+        'node_id',
+    ];
+
 }
