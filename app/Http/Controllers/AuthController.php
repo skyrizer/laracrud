@@ -45,25 +45,53 @@ class AuthController extends Controller
 
     // login user
 
+    // public function login(Request $request)
+    // {
+    //     //validate fields
+    //     $attrs = $request->validate([
+    //         'email' => 'required|email',
+    //         'password' => 'required|min:6|'
+    //     ]);
+
+    //     // attemp login
+    //     if (!Auth::attempt($attrs)) {
+    //         return response([
+    //             'message' => 'Invalid credentials.'
+    //         ], 403);
+    //     }
+
+    //     //return user & token in response
+    //     return response([
+    //         //'user' => auth()->user(),
+    //         'token' => auth()->user()->createToken('secret')->plainTextToken
+    //     ], 200);
+    // }
+
     public function login(Request $request)
     {
-        //validate fields
+        // Validate fields
         $attrs = $request->validate([
             'email' => 'required|email',
-            'password' => 'required|min:6|'
+            'password' => 'required|min:6'
         ]);
 
-        // attemp login
+        // Attempt login
         if (!Auth::attempt($attrs)) {
             return response([
                 'message' => 'Invalid credentials.'
             ], 403);
         }
 
-        //return user & token in response
+        // Get authenticated user
+        $user = auth()->user();
+
+        // Fetch node accesses for the user
+        $nodeAccesses = $user->nodeAccesses()->with(['role', 'node'])->get();
+
+        // Return user, token, and node accesses in response
         return response([
-            //'user' => auth()->user(),
-            'token' => auth()->user()->createToken('secret')->plainTextToken
+            'token' => $user->createToken('secret')->plainTextToken,
+            'node_accesses' => $nodeAccesses
         ], 200);
     }
 
@@ -116,5 +144,5 @@ class AuthController extends Controller
         }
     }
 
-  
+
 }

@@ -13,6 +13,12 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasApiTokens;
 
+    public function nodeAccesses()
+    {
+        return $this->hasMany(NodeAccess::class);
+    }
+
+    
     /**
      * The attributes that are mass assignable.
      *
