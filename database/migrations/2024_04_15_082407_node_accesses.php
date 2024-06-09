@@ -14,21 +14,20 @@ return new class extends Migration
         Schema::create('node_accesses', function (Blueprint $table) {
             $table->unsignedBigInteger('role_id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('node_id');
-
-
-            $table->primary(['role_id', 'user_id', 'node_id']);
-
-            // Define foreign key constraint for container_id
+            $table->unsignedBigInteger('node_id')->nullable(); // Make node_id nullable
+    
+            // Define unique constraint instead of primary key
+            $table->unique(['role_id', 'user_id', 'node_id']);
+    
+            // Define foreign key constraint for role_id, user_id, and node_id
             $table->foreign('role_id')->references('id')->on('user_roles');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('node_id')->references('id')->on('nodes');
-
-
+            $table->foreign('node_id')->references('id')->on('nodes'); 
+    
             $table->timestamps();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      */

@@ -57,6 +57,8 @@ Route::middleware(['HttpRequest'])->group(function () {
         Route::post('addNode', [NodeController::class, 'create']);
         Route::get('getNodes', [NodeController::class, 'index']);
         Route::delete('deleteNode/{id}', [NodeController::class, 'delete']);
+        Route::get('user/nodes', [NodeController::class, 'getNodes']);
+
 
 
         // Config

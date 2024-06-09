@@ -23,4 +23,10 @@ class Node extends Model
     {
         return $this->belongsToMany(Service::class, 'node_services', 'node_id', 'service_id');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'node_accesses', 'node_id', 'user_id')
+                    ->withPivot('role_id');
+    }
 }

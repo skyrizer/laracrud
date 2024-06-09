@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Node;
+use App\Models\NodeAccess;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorenodeRequest;
 use App\Http\Requests\UpdatenodeRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+
 
 
 class NodeController extends Controller
@@ -24,25 +27,45 @@ class NodeController extends Controller
         return response()->json(['nodes' => $nodes], Response::HTTP_OK);
     }
 
+    public function getNodes()
+    {
+        $user = Auth::user(); // Get the currently authenticated user
+        $nodes = $user->nodes; // Fetch nodes related to this user
+        return response()->json(['nodes' => $nodes]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
     public function create(Request $request)
     {
-         //validate fields
-         $attrs = $request->validate([
+        // Validate fields
+        $attrs = $request->validate([
             'hostname' => 'required|string',
             'ip_address' => 'required|string',
+            'role_id' => 'int',
+            'user_id' => 'string'
         ]);
-
-        //create user
+    
+        // Create node
         $node = Node::create([
             'hostname' => $attrs['hostname'],
             'ip_address' => $attrs['ip_address']
         ]);
-
-        //return user & token in response
-        return response([
+    
+        // Initialize node ID
+        $nodeId = $node->id;
+    
+        // If roleId and userId are provided, update NodeAccess
+        if (isset($attrs['role_id']) && isset($attrs['user_id'])) {
+            NodeAccess::updateOrCreate(
+                ['role_id' => $attrs['role_id'], 'user_id' => $attrs['user_id']],
+                ['node_id' => $nodeId, 'role_id' => $attrs['role_id'], 'user_id' => $attrs['user_id']]
+            );
+        }
+    
+        // Return response with node and node ID
+        return response()->json([
             'node' => $node,
         ], 200);
     }

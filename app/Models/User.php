@@ -18,6 +18,12 @@ class User extends Authenticatable
         return $this->hasMany(NodeAccess::class);
     }
 
+    public function nodes()
+    {
+        return $this->belongsToMany(Node::class, 'node_accesses', 'user_id', 'node_id')
+                    ->withPivot('role_id');
+    }
+
     
     /**
      * The attributes that are mass assignable.

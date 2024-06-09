@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\NodeAccess;
 use Illuminate\Support\Facades\Auth; // Import the Auth facade
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Password;
@@ -24,7 +25,8 @@ class AuthController extends Controller
             'name' => 'required|string',
             'phone_number' => 'string',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6|confirmed'
+            'password' => 'required|min:6|confirmed',
+            'role_id' => 'required|integer|exists:user_roles,id'
         ]);
 
         //create user
@@ -35,6 +37,13 @@ class AuthController extends Controller
             'phone_number' => $attrs['phone_number'],
             'password' => bcrypt($attrs['password'])
         ]);
+
+        if ($attrs['role_id'] == 1) {
+            NodeAccess::create([
+                'user_id' => $user->id,
+                'role_id' => $attrs['role_id']
+            ]);
+        }
 
         //return user & token in response
         return response([
@@ -90,6 +99,7 @@ class AuthController extends Controller
 
         // Return user, token, and node accesses in response
         return response([
+            'user' => $user,
             'token' => $user->createToken('secret')->plainTextToken,
             'node_accesses' => $nodeAccesses
         ], 200);
