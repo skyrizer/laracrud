@@ -38,7 +38,7 @@ class AuthController extends Controller
             'password' => bcrypt($attrs['password'])
         ]);
 
-        if ($attrs['role_id'] == 1) {
+        if ($attrs['role_id'] == 1 || $attrs['role_id'] == 2) {
             NodeAccess::create([
                 'user_id' => $user->id,
                 'role_id' => $attrs['role_id']

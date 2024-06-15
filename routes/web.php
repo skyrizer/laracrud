@@ -13,10 +13,11 @@ use App\Http\Controllers\UserRoleController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\HttpResponseController;
 use App\Http\Controllers\NodeConfigController;
-use App\Http\Controllers\ForgotPwdController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\NodeServiceController;
 use App\Http\Controllers\BackgroundProcessController;
+use App\Http\Controllers\UserController;
+
 
 
 
@@ -41,6 +42,9 @@ Route::middleware(['HttpRequest'])->group(function () {
    
     Route::post('getAgentContainers', [ContainerController::class, 'agentContainer']);
 
+    // get roles
+    Route::get('api/getRoles', [UserRoleController::class, 'index']);
+
     // Protected routes
     Route::prefix('api')->middleware(['auth:sanctum'])->group(function () {
 
@@ -51,6 +55,8 @@ Route::middleware(['HttpRequest'])->group(function () {
         // User
         Route::post('logout', [AuthController::class, 'logout']);
         Route::get('user', [AuthController::class, 'user']);
+        Route::post('searchUser', [UserController::class, 'searchUserByName']);
+
 
 
         // Node
@@ -58,6 +64,7 @@ Route::middleware(['HttpRequest'])->group(function () {
         Route::get('getNodes', [NodeController::class, 'index']);
         Route::delete('deleteNode/{id}', [NodeController::class, 'delete']);
         Route::get('user/nodes', [NodeController::class, 'getNodes']);
+        Route::put('updateNode/{id}', [NodeController::class, 'update']);
 
 
 
@@ -89,7 +96,6 @@ Route::middleware(['HttpRequest'])->group(function () {
 
 
         // UserRole
-        Route::get('getRoles', [UserRoleController::class, 'index']);
         Route::post('addRole', [UserRoleController::class, 'store']);
         Route::put('updateRole/{id}', [UserRoleController::class, 'update']);
 
@@ -100,6 +106,8 @@ Route::middleware(['HttpRequest'])->group(function () {
         Route::put('updateNodeAccess/{id}', [NodeAccessController::class, 'update']);
         Route::delete('deleteNodeAccess/{nodeId}/{userId}/{roleId}', [NodeAccessController::class, 'delete']);
         Route::get('getNodeAccess/{nodeId}', [NodeAccessController::class, 'getByNodeId']);
+        Route::get('getByUser/{userId}', [NodeAccessController::class, 'getByUserId']);
+
 
         // HttpResponse
         Route::get('getHttpResponses', [HttpResponseController::class, 'index']);

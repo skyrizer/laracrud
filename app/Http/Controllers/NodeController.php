@@ -70,6 +70,41 @@ class NodeController extends Controller
         ], 200);
     }
 
+    public function update(Request $request, $id)
+    {
+        // Validate fields
+        $attrs = $request->validate([
+            'hostname' => 'sometimes|required|string',
+            'ip_address' => 'sometimes|required|string',
+            'role_id' => 'sometimes|int',
+            'user_id' => 'sometimes|string'
+        ]);
+
+        // Find node by ID
+        $node = Node::find($id);
+
+        if (!$node) {
+            return response()->json(['message' => 'Node not found'], 404);
+        }
+
+        // Update node attributes
+        $node->update($attrs);
+
+        // If roleId and userId are provided, update NodeAccess
+        if (isset($attrs['role_id']) && isset($attrs['user_id'])) {
+            NodeAccess::updateOrCreate(
+                ['role_id' => $attrs['role_id'], 'user_id' => $attrs['user_id']],
+                ['node_id' => $node->id, 'role_id' => $attrs['role_id'], 'user_id' => $attrs['user_id']]
+            );
+        }
+
+        // Return updated node
+        return response()->json([
+            'node' => $node,
+        ], 200);
+    }
+
+
    /**
      * Delete a node by ID.
      *
