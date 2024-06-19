@@ -9,6 +9,9 @@ class NodeConfig extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = ['config_id', 'node_id'];
+    public $incrementing = false; // Since composite keys are not auto-incrementing
+
     public function config()
     {
         return $this->belongsTo(Config::class);

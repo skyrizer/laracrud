@@ -16,7 +16,7 @@ class RolePermissionController extends Controller
      */
     public function index()
     {
-        $rolePermissions = RolePermission::with('config', 'node')
+        $rolePermissions = RolePermission::with('role', 'permission')
                         ->get();
             
     
