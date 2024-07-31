@@ -42,6 +42,9 @@ Route::middleware(['HttpRequest'])->group(function () {
    
     Route::post('getAgentContainers', [ContainerController::class, 'agentContainer']);
 
+    //get service
+    Route::get('api/service/{name}', [ServiceController::class, 'getService']);
+
     // get roles
     Route::get('api/getRoles', [UserRoleController::class, 'index']);
 

@@ -14,18 +14,28 @@ class ServiceSeeder extends Seeder
      */
     public function run(): void
     {
-        //
-        Service::factory()->create([
+        Service::create([
             'name' => 'MySQL',
+            'start_command_linux' => 'sudo service mysql start',
+            'start_command_windows' => 'net start MySQL',
         ]);
 
-        Service::factory()->create([
+        Service::create([
             'name' => 'Apache',
+            'start_command_linux' => 'sudo service apache2 start',
+            'start_command_windows' => 'net start Apache2.4',
         ]);
 
-        Service::factory()->create([
+        Service::create([
             'name' => 'Tomcat',
+            'start_command_linux' => 'sudo service tomcat9 start',
+            'start_command_windows' => 'net start Tomcat9',
         ]);
-        
+
+        Service::create([
+            'name' => 'Docker',
+            'start_command_linux' => 'sudo service docker start',
+            'start_command_windows' => 'net start Docker',
+        ]);
     }
 }

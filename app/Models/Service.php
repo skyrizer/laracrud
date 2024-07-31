@@ -24,8 +24,10 @@ class Service extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = [
+     protected $fillable = [
         'name',
+        'start_command_linux',
+        'start_command_windows',
     ];
     
 }

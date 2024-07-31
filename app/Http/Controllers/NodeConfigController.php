@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\NodeConfig;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreNodeConfigRequest;
-use App\Http\Requests\UpdateNodeConfigRequest;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 

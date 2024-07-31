@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Service;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreServiceRequest;
-use App\Http\Requests\UpdateServiceRequest;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
@@ -23,7 +21,6 @@ class ServiceController extends Controller
          // Return the data as JSON with the specified HTTP response code
          return response()->json(['services' => $services], Response::HTTP_OK);
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -52,28 +49,16 @@ class ServiceController extends Controller
         ], 200);
     }
 
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Service $service)
+    public function getService($name)
     {
-        //
+        $service = Service::where('name', $name)->first();
+
+        if ($service) {
+            return response()->json($service);
+        } else {
+            return response()->json(['message' => 'Service not found'], 404);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateServiceRequest $request, Service $service)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Service $service)
-    {
-        //
-    }
 }

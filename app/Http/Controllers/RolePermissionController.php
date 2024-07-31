@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\RolePermission;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRolePermissionRequest;
-use App\Http\Requests\UpdateRolePermissionRequest;
 use Illuminate\Http\Response;
-use Illuminate\Http\Request;
 
 class RolePermissionController extends Controller
 {
