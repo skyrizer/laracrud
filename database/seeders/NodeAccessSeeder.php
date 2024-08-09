@@ -17,7 +17,7 @@ class NodeAccessSeeder extends Seeder
         
         NodeAccess::factory()->create([
             'role_id' => '1',
-            'user_id' => '3',
+            'user_id' => '1',
             'node_id' => '2',
         ]);
 
@@ -29,7 +29,7 @@ class NodeAccessSeeder extends Seeder
 
         NodeAccess::factory()->create([
             'role_id' => '3',
-            'user_id' => '1',
+            'user_id' => '3',
             'node_id' => '2',
         ]);
     }

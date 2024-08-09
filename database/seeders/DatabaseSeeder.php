@@ -23,18 +23,18 @@ class DatabaseSeeder extends Seeder
         ]);  
         
         User::factory()->create([
-            'name' => 'wafir',
-            'username' => 'skyrizer',
+            'name' => 'devops1',
+            'username' => 'devops1',
             'phone_number' => '01161636065',
-            'email' => 'wafir@gmail.com',
+            'email' => 'devops@gmail.com',
             'password' => 'abc12345'
         ]);
 
         User::factory()->create([
-            'name' => 'devops1',
-            'username' => 'devops1',
+            'name' => 'wafir',
+            'username' => 'wafir',
             'phone_number' => '01161636065',
-            'email' => 'devops1@gmail.com',
+            'email' => 'wafir@gmail.com',
             'password' => 'abc12345'
         ]);
         
