@@ -141,7 +141,7 @@ class NodeController extends Controller
         $ipAddress = $request->input('ip_address');
 
         // Assuming you have a Node model with an ip_address column
-        $node = Node::where('ip_address', $ipAddress)->first();
+        $node = Node::where('ip_address',  $request->ip())->first();
 
         if ($node) {
             return response()->json([
