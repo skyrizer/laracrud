@@ -123,5 +123,37 @@ class NodeController extends Controller
 
         return response()->json(['message' => 'Node deleted successfully'], 200);
     }
+
+     /**
+     * Get the node ID based on the IP address.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getNodeIdByIpAddress(Request $request)
+    {
+        // Validate the incoming request
+        $request->validate([
+            'ip_address' => 'required|ip'
+        ]);
+
+        // Retrieve the IP address from the request
+        $ipAddress = $request->input('ip_address');
+
+        // Assuming you have a Node model with an ip_address column
+        $node = Node::where('ip_address', $ipAddress)->first();
+
+        if ($node) {
+            return response()->json([
+                'success' => true,
+                'node_id' => $node->id
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Node not found'
+            ], 404);
+        }
+    }
     
 }

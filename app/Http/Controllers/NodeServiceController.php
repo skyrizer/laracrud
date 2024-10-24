@@ -24,7 +24,7 @@ class NodeServiceController extends Controller
         $node = Node::with(['services.backgroundProcesses'])->where('ip_address', $request->ip_address)->first();
     
         // Log the node data
-        \Log::info('Node Data:', ['node' => $node]);
+        \Log::info('Node Data:', ['node' => $node, 'ip_address' => $request->ip_address]);
     
         // Check if the node exists
         if (!$node) {

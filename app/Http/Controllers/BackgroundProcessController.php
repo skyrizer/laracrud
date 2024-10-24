@@ -78,15 +78,14 @@ class BackgroundProcessController extends Controller
     {
         //
     }
-
-    public function delete($bpId)
+    public function delete($serviceId, $bpId)
     {
         // Find the background process by ID
-        $backgroundProcess = BackgroundProcess::find($bpId);
+        $backgroundProcess = BackgroundProcess::where('service_id', $serviceId)->find($bpId);
     
-        // Check if the background process exists
+        // Check if the background process exists within the specified service
         if (!$backgroundProcess) {
-            return response()->json(['message' => 'Background Process not found'], 404);
+            return response()->json(['message' => 'Background Process not found in the specified service'], 404);
         }
     
         // Delete the background process
@@ -95,5 +94,4 @@ class BackgroundProcessController extends Controller
         // Return a success response
         return response()->json(['message' => 'Background Process deleted successfully'], 200);
     }
-
 }

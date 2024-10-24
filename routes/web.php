@@ -32,6 +32,8 @@ Route::middleware(['HttpRequest'])->group(function () {
     route::post('/agent', [AgentController::class, 'handlePostRequest']);
     Route::get('getServicesByNode', [NodeServiceController::class, 'getByNodeId']);
 
+    //Node id
+    Route::get('getNodeId', [NodeController::class, 'getNodeIdByIpAddress']);
 
     // Container
     Route::post('storeContainers', [ContainerController::class, 'storeContainers']);
@@ -139,7 +141,7 @@ Route::middleware(['HttpRequest'])->group(function () {
         // Background Process
         Route::get('getBpByService/{serviceId}', [BackgroundProcessController::class, 'getByServiceId']);
         Route::post('addBackgroundProcess', [BackgroundProcessController::class, 'store']);
-        Route::delete('deleteBackgroundProcess/{bpId}', [NodeServiceController::class, 'delete']);
+        Route::delete('deleteBackgroundProcess/{serviceId}/{bpId}', [BackgroundProcessController::class, 'delete']);
 
 
 
