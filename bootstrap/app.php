@@ -25,7 +25,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'HttpRequest' => LogHttpRequests::class,
             'Test' => Test::class,
-
+            'trust.proxies' => \App\Http\Middleware\TrustProxies::class,
         ]);
 
         //

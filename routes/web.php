@@ -17,6 +17,8 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\NodeServiceController;
 use App\Http\Controllers\BackgroundProcessController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TestAPI;
+
 
 
 
@@ -25,6 +27,14 @@ use App\Http\Controllers\UserController;
 
 
 Auth::routes();
+
+Route::get('/test-middleware', function () {
+    return response()->json(['message' => 'Middleware is working!']);
+})->middleware('trust.proxies');
+
+Route::middleware(['trust.proxies'])->get('/log-ip', [TestAPI::class, 'logIp']);
+
+
 
 Route::middleware(['HttpRequest'])->group(function () {
 
