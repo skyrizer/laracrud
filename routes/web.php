@@ -36,7 +36,7 @@ Route::middleware(['trust.proxies'])->get('/log-ip', [TestAPI::class, 'logIp']);
 
 
 
-Route::middleware(['HttpRequest'])->group(function () {
+Route::middleware(['HttpRequest', 'trust.proxies'])->group(function () {
 
     // Agent Controller
     route::post('/agent', [AgentController::class, 'handlePostRequest']);
