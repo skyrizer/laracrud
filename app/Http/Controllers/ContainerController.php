@@ -77,7 +77,7 @@ class ContainerController extends Controller
         ]);
 
         // Retrieve the node based on the provided IP address
-        $node = Node::where('ip_address', $request->ip_address)->first();
+        $node = Node::where('ip_address',  $request->ip())->first();
 
         // Check if the node exists
         if (!$node) {
