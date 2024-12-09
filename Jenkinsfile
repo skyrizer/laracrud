@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Set any environment variables here
         DEPLOY_DIR = '/var/www/laracrud'  // Change to your deployment directory
-        SSH_KEY = credentials('your-ssh-credentials-id')  // Use Jenkins credentials for SSH access
+        SSH_KEY = credentials('deploy-key')  // Use Jenkins credentials for SSH access
     }
 
     stages {
