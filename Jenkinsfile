@@ -7,11 +7,15 @@ pipeline {
         SSH_KEY = credentials('deploy-key')  // Use Jenkins credentials for SSH access
     }
 
+     tools {
+        git 'Git'  // Name of the configured Git installation in Jenkins
+    }
+
     stages {
         stage('Clone Repository') {
             steps {
                 // Clone your Git repository
-                git branch: 'main', url: 'git@github.com:skyrizer/laracrud.git'
+                git branch: 'main', url: 'https://github.com/skyrizer/laracrud.git'
             }
         }
         
