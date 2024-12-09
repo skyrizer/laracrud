@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Set any environment variables here
-        DEPLOY_DIR = '/var/www/your-laravel-app'  // Change to your deployment directory
+        DEPLOY_DIR = '/var/www/laracrud'  // Change to your deployment directory
         SSH_KEY = credentials('your-ssh-credentials-id')  // Use Jenkins credentials for SSH access
     }
 
@@ -11,7 +11,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 // Clone your Git repository
-                git branch: 'main', url: 'git@github.com:yourusername/your-laravel-project.git'
+                git branch: 'main', url: 'git@github.com:skyrizer/laracrud.git'
             }
         }
         
